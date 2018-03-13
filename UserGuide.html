@@ -35,14 +35,14 @@
 <li><a href="#locating-tasks-by-name-code-find-code-or-code-f-code">3.5. Locating tasks by name: <code>find</code> or <code>f</code></a></li>
 <li><a href="#deleting-a-task-code-delete-code-or-code-d-code">3.6. Deleting a task : <code>delete</code> or <code>d</code></a></li>
 <li><a href="#selecting-a-task-code-select-code-or-code-s-code">3.7. Selecting a task : <code>select</code> or <code>s</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code-or-code-c-code">3.11. Clearing all entries : <code>clear</code> or <code>c</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.13. Saving the data</a></li>
-<li><a href="#deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code">3.14. Deleting specific parameters from a task <code>[coming in v2.0]</code></a></li>
-<li><a href="#mark-task-as-complete-code-coming-in-v2-0-code">3.15. Mark task as complete <code>[coming in v2.0]</code></a></li>
+<li><a href="#mark-task-as-complete-code-toggle-code-or-code-t-code">3.8. Mark task as complete: <code>toggle</code> or <code>t</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.9. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.10. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.11. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code-or-code-c-code">3.12. Clearing all entries : <code>clear</code> or <code>c</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.13. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.14. Saving the data</a></li>
+<li><a href="#deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code">3.15. Deleting specific parameters from a task <code>[coming in v2.0]</code></a></li>
 <li><a href="#locating-tasks-by-deadline-code-coming-in-v2-0-code">3.16. Locating tasks by deadline <code>[coming in v2.0]</code></a></li>
 <li><a href="#locating-tasks-by-tag-code-coming-in-v2-0-code">3.17. Locating tasks by tag <code>[coming in v2.0]</code></a></li>
 <li><a href="#locating-tasks-by-description-code-coming-in-v2-0-code">3.18. Locating tasks by description <code>[coming in v2.0]</code></a></li>
@@ -182,6 +182,19 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 <li>
 <p>Having a task description is optional.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>STATUS</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A task can be in one of two states, "Done" or "Not Done".</p>
+</li>
+<li>
+<p>By default, every new task is marked as "Not Done".</p>
 </li>
 </ul>
 </div>
@@ -442,7 +455,43 @@ Selects the 1st task in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></h3>
+<h3 id="mark-task-as-complete-code-toggle-code-or-code-t-code"><a class="link" href="#mark-task-as-complete-code-toggle-code-or-code-t-code">3.8. Mark task as complete: <code>toggle</code> or <code>t</code></a></h3>
+<div class="paragraph">
+<p>Toggle the status of the task identified by the index number used in the last task listing
+between <code>Done</code> and <code>Not Done</code>.<br>
+Format: <code>toggle INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Index usage is same with <code>select</code>. Please refer to <code>select</code> for more details.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>toggle 1</code><br>
+Toggle the first task in the PrioriTask.</p>
+</li>
+<li>
+<p><code>find homework</code><br>
+<code>toggle 1</code><br>
+Toggle the first task in th result of <code>find homework</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.9. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -463,7 +512,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.10. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the PrioriTask to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -508,7 +557,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.11. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -540,28 +589,28 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code-or-code-c-code"><a class="link" href="#clearing-all-entries-code-clear-code-or-code-c-code">3.11. Clearing all entries : <code>clear</code> or <code>c</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code-or-code-c-code"><a class="link" href="#clearing-all-entries-code-clear-code-or-code-c-code">3.12. Clearing all entries : <code>clear</code> or <code>c</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the PrioriTask.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.13. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.13. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.14. Saving the data</a></h3>
 <div class="paragraph">
 <p>PrioriTask data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code"><a class="link" href="#deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code">3.14. Deleting specific parameters from a task <code>[coming in v2.0]</code></a></h3>
+<h3 id="deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code"><a class="link" href="#deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code">3.15. Deleting specific parameters from a task <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{ coming in v2.0 }</em></p>
 </div>
@@ -575,12 +624,6 @@ There is no need to save manually.</p>
 </ul>
 </div>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="mark-task-as-complete-code-coming-in-v2-0-code"><a class="link" href="#mark-task-as-complete-code-coming-in-v2-0-code">3.15. Mark task as complete <code>[coming in v2.0]</code></a></h3>
-<div class="paragraph">
-<p><em>{ coming in v2.0 }</em></p>
 </div>
 </div>
 <div class="sect2">
@@ -695,6 +738,10 @@ e.g. <code>find Developer User</code></p>
 e.g.<code>select 2</code></p>
 </li>
 <li>
+<p><strong>Toggle</strong> : <code>toggle INDEX</code><br>
+e.g.<code>select 3</code></p>
+</li>
+<li>
 <p><strong>History</strong> : <code>history</code></p>
 </li>
 <li>
@@ -710,7 +757,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-13 03:14:11 UTC
+Last updated 2018-03-13 09:40:52 UTC
 </div>
 </div>
 </body>
