@@ -41,7 +41,19 @@
 <li><a href="#clearing-all-entries-code-clear-code-or-code-c-code">3.11. Clearing all entries : <code>clear</code> or <code>c</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></li>
 <li><a href="#saving-the-data">3.13. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code">3.14. Deleting specific parameters from a task <code>[coming in v2.0]</code></a></li>
+<li><a href="#mark-task-as-complete-code-coming-in-v2-0-code">3.15. Mark task as complete <code>[coming in v2.0]</code></a></li>
+<li><a href="#locating-tasks-by-deadline-code-coming-in-v2-0-code">3.16. Locating tasks by deadline <code>[coming in v2.0]</code></a></li>
+<li><a href="#locating-tasks-by-tag-code-coming-in-v2-0-code">3.17. Locating tasks by tag <code>[coming in v2.0]</code></a></li>
+<li><a href="#locating-tasks-by-description-code-coming-in-v2-0-code">3.18. Locating tasks by description <code>[coming in v2.0]</code></a></li>
+<li><a href="#adding-a-subtask-to-a-task-code-coming-in-v2-0-code">3.19. Adding a subtask to a task <code>[coming in v2.0]</code></a></li>
+<li><a href="#deleting-a-subtask-from-a-task-code-coming-in-v2-0-code">3.20. Deleting a subtask from a task <code>[coming in v2.0]</code></a></li>
+<li><a href="#editing-a-subtask-code-coming-in-v2-0-code">3.21. Editing a subtask <code>[coming in v2.0]</code></a></li>
+<li><a href="#mark-subtask-as-complete-code-coming-in-v2-0-code">3.22. Mark subtask as complete <code>[coming in v2.0]</code></a></li>
+<li><a href="#reorder-subtask-code-coming-in-v2-0-code">3.23. Reorder subtask <code>[coming in v2.0]</code></a></li>
+<li><a href="#calendar-code-coming-in-v2-0-code">3.24. Calendar <code>[coming in v2.0]</code></a></li>
+<li><a href="#reminders-code-coming-in-v2-0-code">3.25. Reminders <code>[coming in v2.0]</code></a></li>
+<li><a href="#recover-past-data-code-coming-in-v2-0-code">3.26. Recover past data <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -53,7 +65,7 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Organizer is for those who <strong>prefer to use a desktop app for keeping track of their tasks and priorities</strong>. More importantly, Organizer is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Organizer can get your tasks and priorities organised faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!</p>
+<p>PrioriTask is for those who <strong>prefer to use a desktop application for keeping track of their tasks and priorities</strong>. More importantly, PrioriTask is <strong>optimized for those who prefer to work with a Command Line Interface (CLI)</strong> while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PrioriTask can get your tasks and priorities organised faster than traditional GUI apps. Interested? Jump to <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
 </div>
 </div>
 </div>
@@ -82,7 +94,7 @@ This app will not work with earlier versions of Java 8.
 <p><span class="line-through">Download the latest <code>addressbook.jar</code> <a href="https://github.com/se-edu/addressbook-level4/releases">here</a>.</span> <em>{ to be edited accordingly soon &#8230;&#8203; }</em></p>
 </li>
 <li>
-<p>Copy the file to the folder you want to use as the home folder for your Organizer.</p>
+<p>Copy the file to the folder you want to use as the home folder for your PrioriTask.</p>
 </li>
 <li>
 <p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
@@ -90,9 +102,6 @@ This app will not work with earlier versions of Java 8.
 <div class="content">
 <img src="images/Ui.png" alt="Ui" width="790">
 </div>
-</div>
-<div class="paragraph">
-<p><em>{ image will be updated soon &#8230;&#8203; }</em></p>
 </div>
 </li>
 <li>
@@ -104,16 +113,16 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>list</code></strong> : lists all contacts</p>
+<p><code>list</code> : lists all tasks</p>
 </li>
 <li>
-<p><strong><code>add</code></strong><code>add n/CS2103T Developer Guide p/10 d/2018-03-02</code> : adds a task named <code>CS2103T Developer Guide</code> to the Organizer.</p>
+<p><code>add n/CS2103T Developer Guide p/10 d/2018-03-02</code> : adds a task named <code>CS2103T Developer Guide</code> to the PrioriTask.</p>
 </li>
 <li>
-<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd task shown in the current list</p>
+<p><code>delete 3</code> : deletes the 3rd task shown in the current list</p>
 </li>
 <li>
-<p><strong><code>exit</code></strong> : exits the app</p>
+<p><code>exit</code> : exits the application</p>
 </li>
 </ul>
 </div>
@@ -131,21 +140,84 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
+<p><strong>Parameters</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>NAME</code></p>
+</li>
+<li>
+<p><code>PRIORITY LEVEL</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A task can have a priority level ranging from 0 (lowest) to 9 (highest).</p>
+</li>
+<li>
+<p>Setting a priority level is optional. PrioriTask will automatically set a task’s priority level to its default level (0) if User does not add a one.</p>
+</li>
+<li>
+<p><em>[Coming in v2.0]</em> Priority levels are automatically updated as the deadline approaches, or when a task is still uncompleted after the deadline has passed.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>DEADLINE</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A task must have a deadline in the format of YYYY-MM-DD.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>DESCRIPTION</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A task can have a description that takes in any value (i.e. alphabet, numbers, special symbols).</p>
+</li>
+<li>
+<p>Having a task description is optional.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>TAG</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A task can have any number of tags (including 0).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
 <p><strong>Command Format</strong></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/TASK_NAME</code>, <code>TASK_NAME</code> is a parameter which can be used as <code>add n/CS2103T Developer Guide</code>.</p>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/CS2103T Developer Guide</code>.</p>
 </li>
 <li>
-<p>Items in square brackets are optional e.g <code>n/TASK_NAME [t/TAG]</code> can be used as <code>n/CS2103T Developer Guide t/CS2103</code> or as <code>n/CS2103T Developer Guide</code>.</p>
+<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/CS2103T Developer Guide t/CS2103</code> or as <code>n/CS2103T Developer Guide</code>.</p>
 </li>
 <li>
 <p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/CS2103</code>, <code>t/CS2103 t/CS2101</code> etc.</p>
 </li>
 <li>
-<p>Parameters can be in any order e.g. if the command specifies <code>n/TASK_NAME p/PRIORITY_LEVEL</code>, <code>p/PRIORITY_LEVEL n/TASK_NAME</code> is also acceptable.</p>
+<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PRIORITY_LEVEL</code>, <code>p/PRIORITY_LEVEL n/NAME</code> is also acceptable.</p>
 </li>
 </ul>
 </div>
@@ -160,32 +232,8 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="adding-a-task-code-add-code-or-code-a-code"><a class="link" href="#adding-a-task-code-add-code-or-code-a-code">3.2. Adding a task: <code>add</code> or <code>a</code></a></h3>
 <div class="paragraph">
-<p>Adds a person to the Organizer<br>
-Format: <code>add n/TASK_NAME p/PRIORITY_LEVEL d/DEADLINE [t/TAG]…​</code></p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-A task can have any number of tags (including 0)
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Setting a priority level is optional. PrioriTask will automatically set it to it&#8217;s default priority level 0
-</td>
-</tr>
-</table>
+<p>Adds a person to the PrioriTask<br>
+Format: <code>add n/NAME [p/PRIORITY_LEVEL] d/DEADLINE [des/DESCRIPTION] [t/TAG]…​</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -193,10 +241,10 @@ Setting a priority level is optional. PrioriTask will automatically set it to it
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/CS2103T Developer Guide p/10 d/2018-03-02</code></p>
+<p><code>add n/CS2103T Developer Guide p/9 d/2018-03-02 des/Write Introduction</code></p>
 </li>
 <li>
-<p><code>add n/CS2101 Script p/8 d/2018-03-05 t/CS2101</code></p>
+<p><code>add n/CS2101 Script p/8 d/2018-03-05 des/Script should be 500 words long t/CS2101</code></p>
 </li>
 </ul>
 </div>
@@ -204,24 +252,35 @@ Setting a priority level is optional. PrioriTask will automatically set it to it
 <div class="sect2">
 <h3 id="listing-all-tasks-code-list-code-or-code-l-code"><a class="link" href="#listing-all-tasks-code-list-code-or-code-l-code">3.3. Listing all tasks : <code>list</code> or <code>l</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all tasks in the Organizer.<br></p>
+<p>Shows a list of all tasks in the PrioriTask.<br></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>list</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="editing-a-task-code-edit-code-or-code-e-code"><a class="link" href="#editing-a-task-code-edit-code-or-code-e-code">3.4. Editing a task : <code>edit</code> or <code>e</code></a></h3>
-<div class="paragraph">
-<p>Edits an existing task in the Organizer.<br>
-Format: <code>edit INDEX [n/TASK_NAME] [p/PRIORITY_LEVEL] [d/DEADLINE] [t/TAG]…​</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the task at the specified <code>INDEX</code>. The index refers to the index number shown in the last task listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p><em>[Coming in v2.0]</em> Shows a list of all tasks (regardless of status), all completed tasks, or all uncompleted tasks.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-a-task-code-edit-code-or-code-e-code"><a class="link" href="#editing-a-task-code-edit-code-or-code-e-code">3.4. Editing a task : <code>edit</code> or <code>e</code></a></h3>
+<div class="paragraph">
+<p>Edits an existing task in the PrioriTask.<br>
+Format: <code>edit INDEX [n/NAME] [p/PRIORITY_LEVEL] [d/DEADLINE] [des/DESCRIPTION] [t/TAG]…​</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the task at the specified <code>INDEX</code>. The index refers to the index number shown in the last task listing. The index <strong>must be a positive integer</strong> (i.e. 1, 2, 3, &#8230;&#8203;).</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -230,7 +289,7 @@ Format: <code>edit INDEX [n/TASK_NAME] [p/PRIORITY_LEVEL] [d/DEADLINE] [t/TAG]�
 <p>Existing values will be updated to the input values.</p>
 </li>
 <li>
-<p>When editing tags, the existing tags of the task will be removed i.e adding of tags is not cumulative.</p>
+<p>When editing tags, the existing tags of the task will be removed (i.e adding of tags is not cumulative).</p>
 </li>
 <li>
 <p>You can remove all the task&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
@@ -303,7 +362,7 @@ Returns any task having names <code>CS2101</code>, <code>Developer</code>, or <c
 <div class="sect2">
 <h3 id="deleting-a-task-code-delete-code-or-code-d-code"><a class="link" href="#deleting-a-task-code-delete-code-or-code-d-code">3.6. Deleting a task : <code>delete</code> or <code>d</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified task from the Organizer.<br>
+<p>Deletes the specified task from the PrioriTask.<br>
 Format: <code>delete INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -317,7 +376,7 @@ Format: <code>delete INDEX</code></p>
 <p>The index refers to the index number shown in the most recent listing.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> (i.e. 1, 2, 3, &#8230;&#8203;).</p>
 </li>
 </ul>
 </div>
@@ -331,7 +390,7 @@ Format: <code>delete INDEX</code></p>
 <li>
 <p><code>list</code><br>
 <code>delete 2</code><br>
-Deletes the 2nd task in the Organizer.</p>
+Deletes the 2nd task in the PrioriTask.</p>
 </li>
 <li>
 <p><code>find Developer</code><br>
@@ -352,13 +411,13 @@ Format: <code>select INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Selects the task and loads the Google search page of the task at the specified <code>INDEX</code>.</p>
+<p>Selects the task and shows full details of the task at the specified <code>INDEX</code>.</p>
 </li>
 <li>
 <p>The index refers to the index number shown in the most recent listing.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+<p>The index <strong>must be a positive integer</strong> (i.e. <code>1, 2, 3, &#8230;&#8203;</code>).</p>
 </li>
 </ul>
 </div>
@@ -372,7 +431,7 @@ Format: <code>select INDEX</code></p>
 <li>
 <p><code>list</code><br>
 <code>select 2</code><br>
-Selects the 2nd task in the Organizer.</p>
+Selects the 2nd task in the PrioriTask.</p>
 </li>
 <li>
 <p><code>find Developer</code><br>
@@ -406,7 +465,7 @@ Format: <code>history</code></p>
 <div class="sect2">
 <h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
-<p>Restores the Organizer to the state before the previous <em>undoable</em> command was executed.<br>
+<p>Restores the PrioriTask to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
 </div>
 <div class="admonitionblock note">
@@ -417,7 +476,7 @@ Format: <code>undo</code></p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Undoable commands: those commands that modify the Organizer&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<p>Undoable commands: those commands that modify the PrioriTask&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
 </div>
 </td>
 </tr>
@@ -483,7 +542,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <div class="sect2">
 <h3 id="clearing-all-entries-code-clear-code-or-code-c-code"><a class="link" href="#clearing-all-entries-code-clear-code-or-code-c-code">3.11. Clearing all entries : <code>clear</code> or <code>c</code></a></h3>
 <div class="paragraph">
-<p>Clears all entries from the Organizer.<br>
+<p>Clears all entries from the PrioriTask.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
@@ -497,14 +556,97 @@ Format: <code>exit</code></p>
 <div class="sect2">
 <h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.13. Saving the data</a></h3>
 <div class="paragraph">
-<p>Organizer data are saved in the hard disk automatically after any command that changes the data.<br>
+<p>PrioriTask data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code"><a class="link" href="#deleting-specific-parameters-from-a-task-code-coming-in-v2-0-code">3.14. Deleting specific parameters from a task <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Delete either a tag, deadline, or description from a particular task.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mark-task-as-complete-code-coming-in-v2-0-code"><a class="link" href="#mark-task-as-complete-code-coming-in-v2-0-code">3.15. Mark task as complete <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-tasks-by-deadline-code-coming-in-v2-0-code"><a class="link" href="#locating-tasks-by-deadline-code-coming-in-v2-0-code">3.16. Locating tasks by deadline <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-tasks-by-tag-code-coming-in-v2-0-code"><a class="link" href="#locating-tasks-by-tag-code-coming-in-v2-0-code">3.17. Locating tasks by tag <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-tasks-by-description-code-coming-in-v2-0-code"><a class="link" href="#locating-tasks-by-description-code-coming-in-v2-0-code">3.18. Locating tasks by description <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-subtask-to-a-task-code-coming-in-v2-0-code"><a class="link" href="#adding-a-subtask-to-a-task-code-coming-in-v2-0-code">3.19. Adding a subtask to a task <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-subtask-from-a-task-code-coming-in-v2-0-code"><a class="link" href="#deleting-a-subtask-from-a-task-code-coming-in-v2-0-code">3.20. Deleting a subtask from a task <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-a-subtask-code-coming-in-v2-0-code"><a class="link" href="#editing-a-subtask-code-coming-in-v2-0-code">3.21. Editing a subtask <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mark-subtask-as-complete-code-coming-in-v2-0-code"><a class="link" href="#mark-subtask-as-complete-code-coming-in-v2-0-code">3.22. Mark subtask as complete <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reorder-subtask-code-coming-in-v2-0-code"><a class="link" href="#reorder-subtask-code-coming-in-v2-0-code">3.23. Reorder subtask <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="calendar-code-coming-in-v2-0-code"><a class="link" href="#calendar-code-coming-in-v2-0-code">3.24. Calendar <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reminders-code-coming-in-v2-0-code"><a class="link" href="#reminders-code-coming-in-v2-0-code">3.25. Reminders <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="recover-past-data-code-coming-in-v2-0-code"><a class="link" href="#recover-past-data-code-coming-in-v2-0-code">3.26. Recover past data <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p><em>{ coming in v2.0 }</em></p>
 </div>
 </div>
 </div>
@@ -524,8 +666,8 @@ There is no need to save manually.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong> <code>add n/TASK_NAME p/PRIORITY_LEVEL d/DEADLINE [t/TAG]…</code><br>
-e.g. <code>add n/CS2101 Script p/8 d/2018-03-05 t/CS2101 t/PhaseA</code></p>
+<p><strong>Add</strong> <code>add n/NAME [p/PRIORITY_LEVEL] d/DEADLINE [des/DESCRIPTION] [t/TAG]…</code><br>
+e.g. <code>add n/CS2101 Script p/8 d/2018-03-05 des/Script should be 500 words long t/CS2101 t/PhaseA</code></p>
 </li>
 <li>
 <p><strong>Clear</strong> : <code>clear</code></p>
@@ -535,7 +677,7 @@ e.g. <code>add n/CS2101 Script p/8 d/2018-03-05 t/CS2101 t/PhaseA</code></p>
 e.g. <code>delete 3</code></p>
 </li>
 <li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/TASK_NAME] [p/PRIORITY_LEVEL] [d/DEADLINE] [t/TAG]…​</code><br>
+<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PRIORITY_LEVEL] [d/DEADLINE] [des/DESCRIPTION] [t/TAG]…​</code><br>
 e.g. <code>edit 1 p/9 d/2018-12-30</code></p>
 </li>
 <li>
@@ -568,7 +710,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-13 02:12:53 UTC
+Last updated 2018-03-13 02:21:53 UTC
 </div>
 </div>
 </body>
