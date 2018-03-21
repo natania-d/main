@@ -147,7 +147,7 @@ public class Organizer implements ReadOnlyOrganizer {
         taskTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
         return new Task(
                 task.getName(), task.getPriority(), task.getDeadline(), task.getDateAdded(),
-                task.getDescription(), task.getStatus(), correctTagReferences);
+                task.getDateCompleted(), task.getDescription(), task.getStatus(), correctTagReferences);
     }
 
     /**
@@ -182,7 +182,7 @@ public class Organizer implements ReadOnlyOrganizer {
 
         Task newTask =
                 new Task(task.getName(), task.getPriority(), task.getDeadline(),
-                        task.getDateAdded(), task.getDescription(), newTags);
+                        task.getDateAdded(), task.getDateCompleted(), task.getDescription(), newTags);
 
         try {
             updateTask(task, newTask);

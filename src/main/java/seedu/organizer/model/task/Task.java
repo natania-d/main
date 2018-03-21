@@ -20,13 +20,14 @@ public class Task {
     private final Priority priority;
     private final Deadline deadline;
     private final DateAdded dateAdded;
+    private final DateCompleted dateCompleted;
     private final Description description;
     private final Status status;
 
     private final UniqueTagList tags;
 
     /**
-     * Every field must be present and not null
+     * Every field must be present
      */
     public Task(Name name, Priority priority, Deadline deadline, Description description, Set<Tag> tags) {
         requireAllNonNull(name, priority, deadline, description, tags);
@@ -34,6 +35,7 @@ public class Task {
         this.priority = priority;
         this.deadline = deadline;
         this.dateAdded = new DateAdded();
+        this.dateCompleted = null;
         this.description = description;
         this.status = null;
         // protect internal tags from changes in the arg list
@@ -44,12 +46,13 @@ public class Task {
      * Every field must be present and not null
      */
     public Task(Name name, Priority priority, Deadline deadline, DateAdded dateAdded,
-                Description description, Set<Tag> tags) {
+                DateCompleted dateCompleted, Description description, Set<Tag> tags) {
         requireAllNonNull(name, priority, deadline, description, tags);
         this.name = name;
         this.priority = priority;
         this.deadline = deadline;
         this.dateAdded = dateAdded;
+        this.dateCompleted = dateCompleted;
         this.description = description;
         this.status = null;
         // protect internal tags from changes in the arg list
@@ -60,12 +63,13 @@ public class Task {
      * Another constructor with custom status
      */
     public Task(Name name, Priority priority, Deadline deadline, DateAdded dateAdded,
-                Description description, Status status, Set<Tag> tags) {
+                DateCompleted dateCompleted, Description description, Status status, Set<Tag> tags) {
         requireAllNonNull(name, priority, deadline, description, tags);
         this.name = name;
         this.priority = priority;
         this.deadline = deadline;
         this.dateAdded = dateAdded;
+        this.dateCompleted = dateCompleted;
         this.description = description;
         this.status = status;
         // protect internal tags from changes in the arg list
@@ -87,6 +91,8 @@ public class Task {
     public DateAdded getDateAdded() {
         return dateAdded;
     }
+
+    public DateCompleted getDateCompleted() { return dateCompleted; }
 
     public Description getDescription() {
         return description;

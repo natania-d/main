@@ -18,6 +18,7 @@ import seedu.organizer.logic.commands.exceptions.CommandException;
 import seedu.organizer.logic.commands.util.EditTaskDescriptor;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
+import seedu.organizer.model.task.DateCompleted;
 import seedu.organizer.model.task.Deadline;
 import seedu.organizer.model.task.Description;
 import seedu.organizer.model.task.Name;
@@ -106,12 +107,13 @@ public class EditCommand extends UndoableCommand {
         Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
         Deadline updatedDeadline = editTaskDescriptor.getDeadline().orElse(taskToEdit.getDeadline());
         DateAdded oldDateAdded = taskToEdit.getDateAdded();
+        DateCompleted oldDateCompleted = taskToEdit.getDateCompleted();
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Status updatedstatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
         return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded,
-                updatedDescription, updatedstatus, updatedTags);
+                oldDateCompleted, updatedDescription, updatedstatus, updatedTags);
     }
 
     @Override

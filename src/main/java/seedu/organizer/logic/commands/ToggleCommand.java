@@ -10,6 +10,7 @@ import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.exceptions.CommandException;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
+import seedu.organizer.model.task.DateCompleted;
 import seedu.organizer.model.task.Deadline;
 import seedu.organizer.model.task.Description;
 import seedu.organizer.model.task.Name;
@@ -20,7 +21,7 @@ import seedu.organizer.model.task.exceptions.DuplicateTaskException;
 import seedu.organizer.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Inverse the value of task status
+ * Inverse the value of task status (Done or Not done)
  */
 public class ToggleCommand extends UndoableCommand {
 
@@ -30,7 +31,7 @@ public class ToggleCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggle task status\n";
 
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the organizer.";
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Toogled Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Toggled Task: %1$s";
 
     public final Index index;
 
@@ -79,12 +80,18 @@ public class ToggleCommand extends UndoableCommand {
         Priority updatedPriority = taskToEdit.getPriority();
         Deadline updatedDeadline = taskToEdit.getDeadline();
         DateAdded oldDateAdded = taskToEdit.getDateAdded();
+        DateCompleted updatedDateCompleted = taskToEdit.getDateCompleted();
+        if (updatedDateCompleted == null) {
+            updatedDateCompleted = new DateCompleted();
+        } else {
+            updatedDateCompleted = null;
+        }
         Description updatedDescription = taskToEdit.getDescription();
         Set<Tag> updatedTags = taskToEdit.getTags();
         Status updatedStatus = taskToEdit.getStatus().getInverse();
 
         return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded,
-                updatedDescription, updatedStatus, updatedTags);
+                updatedDateCompleted, updatedDescription, updatedStatus, updatedTags);
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
+import seedu.organizer.model.task.DateCompleted;
 import seedu.organizer.model.task.Deadline;
 import seedu.organizer.model.task.Description;
 import seedu.organizer.model.task.Name;
@@ -23,6 +24,7 @@ public class TaskBuilder {
     public static final String DEFAULT_PRIORITY = "2";
     public static final String DEFAULT_DEADLINE = "2018-05-18";
     public static final String DEFAULT_DATEADDED = LocalDate.now().toString();
+    public static final String DEFAULT_DATECOMPLETED = null;
     public static final String DEFAULT_DESCRIPTION = "Study for CS2103T Exam";
     public static final String DEFAULT_TAGS = "friends";
     public static final Boolean DEFAULT_STATUS = false;
@@ -31,6 +33,7 @@ public class TaskBuilder {
     private Priority priority;
     private Deadline deadline;
     private DateAdded dateAdded;
+    private DateCompleted dateCompleted;
     private Description description;
     private Status status;
     private Set<Tag> tags;
@@ -40,6 +43,7 @@ public class TaskBuilder {
         priority = new Priority(DEFAULT_PRIORITY);
         deadline = new Deadline(DEFAULT_DEADLINE);
         dateAdded = new DateAdded(DEFAULT_DATEADDED);
+        dateCompleted = new DateCompleted(DEFAULT_DATECOMPLETED);
         description = new Description(DEFAULT_DESCRIPTION);
         status = new Status(DEFAULT_STATUS);
         tags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
@@ -53,6 +57,7 @@ public class TaskBuilder {
         priority = taskToCopy.getPriority();
         deadline = taskToCopy.getDeadline();
         dateAdded = taskToCopy.getDateAdded();
+        dateCompleted = taskToCopy.getDateCompleted();
         description = taskToCopy.getDescription();
         status = taskToCopy.getStatus();
         tags = new HashSet<>(taskToCopy.getTags());
@@ -116,8 +121,16 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DateCompleted} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withDateCompleted(String dateCompleted) {
+        this.dateCompleted = new DateCompleted(dateCompleted);
+        return this;
+    }
+
     public Task build() {
-        return new Task(name, priority, deadline, dateAdded, description, status, tags);
+        return new Task(name, priority, deadline, dateAdded, dateCompleted, description, status, tags);
     }
 
 }

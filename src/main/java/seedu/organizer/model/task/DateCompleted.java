@@ -26,17 +26,22 @@ public class DateCompleted {
     /**
      * Constructs an {@code DateCompleted}.
      *
-     * @param datecompleted A valid date.
+     * @param dateCompleted A valid date.
      */
-    public DateCompleted(String datecompleted) {
-        requireNonNull(datecompleted);
-        checkArgument(isValidDateCompleted(datecompleted), MESSAGE_DATECOMPLETED_CONSTRAINTS);
+    public DateCompleted(String dateCompleted) {
+        requireNonNull(dateCompleted);
+        checkArgument(isValidDateCompleted(dateCompleted), MESSAGE_DATECOMPLETED_CONSTRAINTS);
         //temporary fix for xml file bug due to PrioriTask's dependence on the current date
-        if (datecompleted.equals("current_date")) {
+        if (dateCompleted.equals("current_date")) {
             this.date = LocalDate.now();
         } else {
             //actual code that is run when tests are not running
-            this.date = LocalDate.parse(datecompleted);
+            if (dateCompleted.equals("not completed")) {
+                this.date = null;
+            }
+            else {
+                this.date = LocalDate.parse(dateCompleted);
+            }
         }
     }
 
@@ -53,11 +58,13 @@ public class DateCompleted {
      * Returns true if a given string is a valid task deadline.
      */
     public static boolean isValidDateCompleted(String test) {
-        return test.matches("current_date") || test.matches(DATECOMPLETED_VALIDATION_REGEX);
+        return test.matches("current_date") || test.matches(DATECOMPLETED_VALIDATION_REGEX) || test.matches("not completed");
     }
 
-    @Override
-    public String toString() {
+    public String toString(boolean status) {
+        if (!status) {
+            return "not completed";
+        }
         return date.toString();
     }
 
