@@ -530,6 +530,32 @@ private void createMainView() throws IOException {
 
 // end::calendar[]
 
+//tag::recurringtask[]
+
+//end::recurringtask[]
+=== Recurring Tasks
+==== Current Implementation
+
+The recurring tasks function is facilitated by a `Schedule` interface, which resides inside `ModelManager`. It allows selected tasks to be recurring over a time period using a regular time interval such as weekly or monthly. The Schedule interface is as such:
+
+----
+class Schedule {
+    public boolean isOccuring(String eventArg, Date aDate)
+    public vector dates (String eventArg, DateRange during)
+    public Date nextOccurence (String eventArg, Date aDate)
+    };
+----
+
+===== Scenario
+
+Suppose that the user has just launched the application.
+
+The user executes a command `repeat weekly 5`, to recur the 5th task in the organizer weekly.
+
+
+==== Design Considerations
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
