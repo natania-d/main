@@ -88,7 +88,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 MISSING_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                null, VALID_PRIORITY, VALID_DEADLINE, current_date,
+                null, VALID_PRIORITY, VALID_DEADLINE, current_date, current_date,
                 VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS);
         assertEquals(expectedTask, actualTask);
     }
@@ -98,7 +98,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 INVALID_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                VALID_NAME, INVALID_PRIORITY, VALID_DEADLINE, current_date,
+                VALID_NAME, INVALID_PRIORITY, VALID_DEADLINE, current_date, current_date,
                 VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS);
         assertEquals(expectedTask, actualTask);
     }
@@ -108,7 +108,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 VALID_TASK_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                VALID_NAME, VALID_PRIORITY, VALID_DEADLINE, current_date,
+                VALID_NAME, VALID_PRIORITY, VALID_DEADLINE, current_date, current_date,
                 VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS);
         assertEquals(expectedTask, actualTask);
     }
