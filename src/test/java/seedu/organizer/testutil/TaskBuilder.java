@@ -1,9 +1,12 @@
 package seedu.organizer.testutil;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
 import seedu.organizer.model.task.DateCompleted;
@@ -28,6 +31,7 @@ public class TaskBuilder {
     public static final String DEFAULT_DESCRIPTION = "Study for CS2103T Exam";
     public static final String DEFAULT_TAGS = "friends";
     public static final Boolean DEFAULT_STATUS = false;
+    public static final String DEFAULT_SUBTASKS = "Buy some answer";
 
     private Name name;
     private Priority priority;
@@ -37,6 +41,7 @@ public class TaskBuilder {
     private Description description;
     private Status status;
     private Set<Tag> tags;
+    private List<Subtask> subtasks;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -47,6 +52,7 @@ public class TaskBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         status = new Status(DEFAULT_STATUS);
         tags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
+        subtasks = SampleDataUtil.getSubtaskList(DEFAULT_SUBTASKS);
     }
 
     /**
@@ -61,6 +67,7 @@ public class TaskBuilder {
         description = taskToCopy.getDescription();
         status = taskToCopy.getStatus();
         tags = new HashSet<>(taskToCopy.getTags());
+        subtasks = new ArrayList<>(taskToCopy.getSubtasks());
     }
 
     /**
@@ -76,6 +83,14 @@ public class TaskBuilder {
      */
     public TaskBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code subtask} into a {@code List<Subtask>} and set it to the {@code Task} that we are building.
+     */
+    public TaskBuilder withSubtask(String... subtask) {
+        this.subtasks = SampleDataUtil.getSubtaskList(subtask);
         return this;
     }
 
@@ -129,8 +144,16 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Add {@code Subtask} to the {@code Task} that we are building.
+     */
+    public TaskBuilder addSubtask(String name) {
+        this.subtasks.add(new Subtask(new Name(name)));
+        return this;
+    }
+
     public Task build() {
-        return new Task(name, priority, deadline, dateAdded, dateCompleted, description, status, tags);
+        return new Task(name, priority, deadline, dateAdded, dateCompleted, description, status, tags, subtasks);
     }
 
 }

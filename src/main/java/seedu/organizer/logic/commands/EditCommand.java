@@ -16,6 +16,7 @@ import seedu.organizer.commons.core.Messages;
 import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.exceptions.CommandException;
 import seedu.organizer.logic.commands.util.EditTaskDescriptor;
+import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
 import seedu.organizer.model.task.DateCompleted;
@@ -89,7 +90,7 @@ public class EditCommand extends UndoableCommand {
         List<Task> lastShownList = model.getFilteredTaskList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         taskToEdit = lastShownList.get(index.getZeroBased());
@@ -111,9 +112,10 @@ public class EditCommand extends UndoableCommand {
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Status updatedstatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
+        List<Subtask> updatedSubtasks = editTaskDescriptor.getSubtasks().orElse(taskToEdit.getSubtasks());
 
         return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded,
-                oldDateCompleted, updatedDescription, updatedstatus, updatedTags);
+                oldDateCompleted, updatedDescription, updatedstatus, updatedTags, updatedSubtasks);
     }
 
     @Override

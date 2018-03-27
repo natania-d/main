@@ -4,9 +4,12 @@ import static seedu.organizer.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.organizer.model.subtask.Subtask;
+import seedu.organizer.model.subtask.UniqueSubtaskList;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.tag.UniqueTagList;
 
@@ -25,9 +28,10 @@ public class Task {
     private final Status status;
 
     private final UniqueTagList tags;
+    private final UniqueSubtaskList subtasks;
 
     /**
-     * Every field must be present
+     * Every field must be present and not null except status and dateCompleted
      */
     public Task(Name name, Priority priority, Deadline deadline, Description description, Set<Tag> tags) {
         requireAllNonNull(name, priority, deadline, description, tags);
@@ -40,10 +44,11 @@ public class Task {
         this.status = null;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.subtasks = new UniqueSubtaskList();
     }
 
     /**
-     * Every field must be present and not null
+     * Every field must be present and not null except status
      */
     public Task(Name name, Priority priority, Deadline deadline, DateAdded dateAdded,
                 DateCompleted dateCompleted, Description description, Set<Tag> tags) {
@@ -57,13 +62,14 @@ public class Task {
         this.status = null;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.subtasks = new UniqueSubtaskList();
     }
 
     /**
-     * Another constructor with custom status
+     * Another constructor with custom status and subtask
      */
-    public Task(Name name, Priority priority, Deadline deadline, DateAdded dateAdded,
-                DateCompleted dateCompleted, Description description, Status status, Set<Tag> tags) {
+    public Task(Name name, Priority priority, Deadline deadline, DateAdded dateAdded, DateCompleted dateCompleted,
+                Description description, Status status, Set<Tag> tags, List<Subtask> subtasks) {
         requireAllNonNull(name, priority, deadline, description, tags);
         this.name = name;
         this.priority = priority;
@@ -74,6 +80,7 @@ public class Task {
         this.status = status;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.subtasks = new UniqueSubtaskList(subtasks);
     }
 
     public Name getName() {
@@ -111,6 +118,10 @@ public class Task {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.toSet());
+    }
+
+    public List<Subtask> getSubtasks() {
+        return Collections.unmodifiableList(subtasks.toList());
     }
 
     @Override

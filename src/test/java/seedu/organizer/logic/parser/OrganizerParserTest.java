@@ -16,8 +16,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.organizer.logic.commands.AddCommand;
+import seedu.organizer.logic.commands.AddSubtaskCommand;
 import seedu.organizer.logic.commands.ClearCommand;
 import seedu.organizer.logic.commands.DeleteCommand;
+import seedu.organizer.logic.commands.DeleteSubtaskCommand;
 import seedu.organizer.logic.commands.EditCommand;
 import seedu.organizer.logic.commands.ExitCommand;
 import seedu.organizer.logic.commands.FindDeadlineCommand;
@@ -30,9 +32,11 @@ import seedu.organizer.logic.commands.ListCommand;
 import seedu.organizer.logic.commands.RedoCommand;
 import seedu.organizer.logic.commands.SelectCommand;
 import seedu.organizer.logic.commands.ToggleCommand;
+import seedu.organizer.logic.commands.ToggleSubtaskCommand;
 import seedu.organizer.logic.commands.UndoCommand;
 import seedu.organizer.logic.commands.util.EditTaskDescriptor;
 import seedu.organizer.logic.parser.exceptions.ParseException;
+import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.task.DeadlineContainsKeywordsPredicate;
 import seedu.organizer.model.task.DescriptionContainsKeywordsPredicate;
 import seedu.organizer.model.task.MultipleFieldsContainsKeywordsPredicate;
@@ -77,6 +81,18 @@ public class OrganizerParserTest {
     }
 
     @Test
+    public void parseCommand_deleteSubtask() throws Exception {
+        DeleteSubtaskCommand command = (DeleteSubtaskCommand) parser.parseCommand(
+                DeleteSubtaskCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased() + " "
+                        + INDEX_FIRST_TASK.getOneBased());
+        DeleteSubtaskCommand commandAlias = (DeleteSubtaskCommand) parser.parseCommand(
+                DeleteSubtaskCommand.COMMAND_ALIAS + " " + INDEX_FIRST_TASK.getOneBased() + " "
+                        + INDEX_FIRST_TASK.getOneBased());
+        assertEquals(new DeleteSubtaskCommand(INDEX_FIRST_TASK, INDEX_FIRST_TASK), command);
+        assertEquals(new DeleteSubtaskCommand(INDEX_FIRST_TASK, INDEX_FIRST_TASK), commandAlias);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Task task = new TaskBuilder().build();
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(task).build();
@@ -86,6 +102,20 @@ public class OrganizerParserTest {
                 + INDEX_FIRST_TASK.getOneBased() + " " + TaskUtil.getPersonDetails(task));
         assertEquals(new EditCommand(INDEX_FIRST_TASK, descriptor), command);
         assertEquals(new EditCommand(INDEX_FIRST_TASK, descriptor), commandAlias);
+    }
+
+    @Test
+    public void parseCommand_addSubtask() throws Exception {
+        Task task = new TaskBuilder().build();
+        Subtask subtask = new Subtask(task.getName());
+        AddSubtaskCommand command = (AddSubtaskCommand) parser.parseCommand(
+                AddSubtaskCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_TASK.getOneBased() + " " + TaskUtil.getSubtaskDetails(task));
+        AddSubtaskCommand commandAlias = (AddSubtaskCommand) parser.parseCommand(
+                AddSubtaskCommand.COMMAND_ALIAS + " "
+                + INDEX_FIRST_TASK.getOneBased() + " " + TaskUtil.getSubtaskDetails(task));
+        assertEquals(new AddSubtaskCommand(INDEX_FIRST_TASK, subtask), command);
+        assertEquals(new AddSubtaskCommand(INDEX_FIRST_TASK, subtask), commandAlias);
     }
 
     @Test
@@ -192,6 +222,18 @@ public class OrganizerParserTest {
                 ToggleCommand.COMMAND_ALIAS + " " + INDEX_FIRST_TASK.getOneBased());
         assertEquals(new ToggleCommand(INDEX_FIRST_TASK), command);
         assertEquals(new ToggleCommand(INDEX_FIRST_TASK), commandAlias);
+    }
+
+    @Test
+    public void parseCommand_toggleSubtask() throws Exception {
+        ToggleSubtaskCommand command = (ToggleSubtaskCommand) parser.parseCommand(
+                ToggleSubtaskCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased() + " "
+                        + INDEX_FIRST_TASK.getOneBased());
+        ToggleSubtaskCommand commandAlias = (ToggleSubtaskCommand) parser.parseCommand(
+                ToggleSubtaskCommand.COMMAND_ALIAS + " " + INDEX_FIRST_TASK.getOneBased() + " "
+                        + INDEX_FIRST_TASK.getOneBased());
+        assertEquals(new ToggleSubtaskCommand(INDEX_FIRST_TASK, INDEX_FIRST_TASK), command);
+        assertEquals(new ToggleSubtaskCommand(INDEX_FIRST_TASK, INDEX_FIRST_TASK), commandAlias);
     }
 
     @Test

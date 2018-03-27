@@ -2,6 +2,7 @@ package seedu.organizer.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -24,6 +25,7 @@ public class TaskCard extends UiPart<Region> {
 
     private static final String[] TAG_COLOR_STYLES = { "blue", "brown", "gray", "green", "maroon", "orange",
         "pink", "purple", "red", "yellow" };
+    private static final int CELL_HEIGHT = 24;
     public final Task task;
 
     @FXML
@@ -46,6 +48,8 @@ public class TaskCard extends UiPart<Region> {
     private Label datecompleted;
     @FXML
     private FlowPane tags;
+    @FXML
+    private ListView<Label> subtasks;
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
@@ -58,6 +62,7 @@ public class TaskCard extends UiPart<Region> {
         deadline.setText("Deadline : " + task.getDeadline().toString());
         dateadded.setText("Date Added : " + task.getDateAdded().toString());
         //datecompleted.setText("Date Completed: " + task.getDateCompleted().toString(task.getStatus().value));
+        initSubtask(task);
         initTags(task);
     }
 
@@ -73,14 +78,25 @@ public class TaskCard extends UiPart<Region> {
     }
 
     /**
-    * Creates the tag labels for {@code task}.
-    */
+     * Creates the tag labels for {@code task}.
+     */
     private void initTags(Task task) {
         task.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
             tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
             tags.getChildren().add(tagLabel);
         });
+    }
+
+    /**
+     * Creates the subtask for {@code task}.
+     */
+    private void initSubtask(Task task) {
+        task.getSubtasks().forEach(subtask-> {
+            Label subtaskLabel = new Label(subtask.toString());
+            subtasks.getItems().add(subtaskLabel);
+        });
+        subtasks.setPrefHeight(10 + CELL_HEIGHT * task.getSubtasks().size());
     }
 
     @Override
