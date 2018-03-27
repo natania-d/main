@@ -99,7 +99,7 @@ public class XmlAdaptedTaskTest {
 
     public void toModelType_nullDescription_throwsIllegalValueException() {
         XmlAdaptedTask task = new XmlAdaptedTask(VALID_NAME, VALID_PRIORITY, VALID_DEADLINE, VALID_DATEADDED,
-                VALID_DATECOMPLETED,null, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS);
+                VALID_DATECOMPLETED, null, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }
