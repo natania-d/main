@@ -79,7 +79,9 @@ public class DateCompleted {
      * Returns String representation of DateCompleted depending on whether task is completed
      */
     public String toString() {
-        if (date == null) return TASK_NOTCOMPLETED;
+        if (date == null) {
+            return TASK_NOTCOMPLETED;
+        }
         return date.toString();
     }
 
