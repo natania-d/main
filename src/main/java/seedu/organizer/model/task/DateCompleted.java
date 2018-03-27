@@ -39,8 +39,7 @@ public class DateCompleted {
             //actual code that is run when tests are not running
             if (dateCompleted.equals(TASK_NOTCOMPLETED)) {
                 this.date = null;
-            }
-            else {
+            } else {
                 this.date = LocalDate.parse(dateCompleted);
             }
         }
@@ -61,8 +60,7 @@ public class DateCompleted {
     public DateCompleted(boolean completed) {
         if (!completed) {
             this.date = null;
-        }
-        else {
+        } else {
             LocalDate currentDate = LocalDate.now();
             requireNonNull(currentDate);
             this.date = currentDate;
@@ -73,13 +71,15 @@ public class DateCompleted {
      * Returns true if a given string is a valid task deadline.
      */
     public static boolean isValidDateCompleted(String test) {
-        return test.matches("current_date") || test.matches(DATECOMPLETED_VALIDATION_REGEX) || test.matches(TASK_NOTCOMPLETED);
+        return test.matches("current_date") || test.matches(DATECOMPLETED_VALIDATION_REGEX)
+                || test.matches(TASK_NOTCOMPLETED);
     }
 
+    /**
+     * Returns String representation of DateCompleted depending on whether task is completed
+     */
     public String toString() {
-        if (date == null) {
-            return TASK_NOTCOMPLETED;
-        }
+        if (date == null) return TASK_NOTCOMPLETED;
         return date.toString();
     }
 

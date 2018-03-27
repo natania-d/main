@@ -151,8 +151,8 @@ public class XmlAdaptedTask {
         final DateAdded dateadded = new DateAdded(this.dateadded);
 
         if (this.datecompleted == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateCompleted.class.getSimpleName
-                    ()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DateCompleted.class.getSimpleName()));
         }
         if (!DateCompleted.isValidDateCompleted(this.deadline)) {
             throw new IllegalValueException(DateCompleted.MESSAGE_DATECOMPLETED_CONSTRAINTS);
