@@ -99,7 +99,9 @@ public class Task {
         return dateAdded;
     }
 
-    public DateCompleted getDateCompleted() { return dateCompleted; }
+    public DateCompleted getDateCompleted() {
+        return dateCompleted;
+    }
 
     public Description getDescription() {
         return description;
