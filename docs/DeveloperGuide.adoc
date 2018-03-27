@@ -318,7 +318,7 @@ The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, an
 [NOTE]
 If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown when popping the `redoStack`.
 
-The user now decides to execute a new command, `clear`. As before, `clear` will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/Study` command (this is the behavior that most modern desktop applications follow).
+The user now decides to execute a new command, `clear`. As before, `clear` will be pushed into the `undoStack`. This time the `redoStack` is now empty. It will be purged as it no longer make sense to redo the `add n/Study` command (this is the behavior that most modern desktop applications follow).
 
 .UndoRedoStack `clear` command execution
 image::UndoRedoNewCommand2StackDiagram.png[width="800"]
