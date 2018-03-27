@@ -56,6 +56,20 @@ public class DateCompleted {
     }
 
     /**
+     * Constructs a DateCompleted that is empty
+     */
+    public DateCompleted(boolean completed) {
+        if (!completed) {
+            this.date = null;
+        }
+        else {
+            LocalDate currentDate = LocalDate.now();
+            requireNonNull(currentDate);
+            this.date = currentDate;
+        }
+    }
+
+    /**
      * Returns true if a given string is a valid task deadline.
      */
     public static boolean isValidDateCompleted(String test) {
@@ -63,10 +77,20 @@ public class DateCompleted {
     }
 
     public String toString() {
-        if (date==null) {
+        if (date == null) {
             return TASK_NOTCOMPLETED;
         }
         return date.toString();
+    }
+
+    /**
+     * Updates DateCompleted when status is toggled
+     */
+    public DateCompleted toggle() {
+        if (date == null) {
+            return new DateCompleted();
+        }
+        return new DateCompleted(false);
     }
 
     @Override

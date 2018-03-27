@@ -39,7 +39,7 @@ public class Task {
         this.priority = priority;
         this.deadline = deadline;
         this.dateAdded = new DateAdded();
-        this.dateCompleted = null;
+        this.dateCompleted = new DateCompleted(false);
         this.description = description;
         this.status = null;
         // protect internal tags from changes in the arg list
@@ -100,6 +100,9 @@ public class Task {
     }
 
     public DateCompleted getDateCompleted() {
+        if (dateCompleted == null) {
+            return new DateCompleted(false);
+        }
         return dateCompleted;
     }
 

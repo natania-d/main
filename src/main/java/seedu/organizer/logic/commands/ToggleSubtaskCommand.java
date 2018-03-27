@@ -92,11 +92,6 @@ public class ToggleSubtaskCommand extends UndoableCommand {
         Deadline updatedDeadline = taskToEdit.getDeadline();
         DateAdded oldDateAdded = taskToEdit.getDateAdded();
         DateCompleted updatedDateCompleted = taskToEdit.getDateCompleted();
-        if (updatedDateCompleted == null) {
-            updatedDateCompleted = new DateCompleted();
-        } else {
-            updatedDateCompleted = null;
-        }
         Description updatedDescription = taskToEdit.getDescription();
         Set<Tag> updatedTags = taskToEdit.getTags();
         List<Subtask> originalSubtasks = new ArrayList<>(taskToEdit.getSubtasks());
