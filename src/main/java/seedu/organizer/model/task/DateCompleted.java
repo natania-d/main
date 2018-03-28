@@ -8,7 +8,7 @@ import java.time.LocalDate;
 //@@author natania
 /**
  * Represents a Task's dateCompleted in the organizer book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
+ * Guarantees: immutable;
  */
 public class DateCompleted {
 
@@ -71,8 +71,7 @@ public class DateCompleted {
      * Returns true if a given string is a valid task deadline.
      */
     public static boolean isValidDateCompleted(String test) {
-        return test.matches("current_date") || test.matches(DATECOMPLETED_VALIDATION_REGEX)
-                || test.matches(TASK_NOTCOMPLETED);
+        return test.matches(DATECOMPLETED_VALIDATION_REGEX) || test.matches(TASK_NOTCOMPLETED);
     }
 
     /**

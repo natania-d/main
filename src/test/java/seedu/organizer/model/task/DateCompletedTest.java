@@ -31,8 +31,9 @@ public class DateCompletedTest {
         Assert.assertThrows(NullPointerException.class, () -> DateCompleted.isValidDateCompleted(null));
 
         // blank dateCompleted
-        assertTrue(DateCompleted.isValidDateCompleted("")); // empty string
+        assertFalse(DateCompleted.isValidDateCompleted("")); // empty string
         assertFalse(DateCompleted.isValidDateCompleted(" ")); // spaces only
+
 
         // missing parts
         assertFalse(DateCompleted.isValidDateCompleted("2018-02")); // missing date
