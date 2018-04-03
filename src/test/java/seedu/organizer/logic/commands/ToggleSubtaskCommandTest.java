@@ -161,8 +161,8 @@ public class ToggleSubtaskCommandTest {
                 task.getStatus(),
                 task.getTags(),
                 subtasks,
-                task.getUser()
-        );
+                task.getUser(),
+                task.getRecurrence());
     }
 
     /**

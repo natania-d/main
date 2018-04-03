@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.subtask.UniqueSubtaskList;
 import seedu.organizer.model.tag.Tag;
@@ -29,6 +30,7 @@ public class Task {
     private final Description description;
     private final Status status;
     private final User user;
+    private final Recurrence recurrence;
 
     private final UniqueTagList tags;
     private final UniqueSubtaskList subtasks;
@@ -49,6 +51,7 @@ public class Task {
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
         this.subtasks = new UniqueSubtaskList();
+        this.recurrence = new Recurrence();
     }
 
     /**
@@ -67,6 +70,7 @@ public class Task {
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
         this.subtasks = new UniqueSubtaskList();
+        this.recurrence = new Recurrence();
     }
 
     /**
@@ -86,13 +90,15 @@ public class Task {
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
         this.subtasks = new UniqueSubtaskList();
+        this.recurrence = new Recurrence();
     }
 
     /**
      * Another constructor with custom status and subtask
      */
     public Task(Name name, Priority priority, Deadline deadline, DateAdded dateAdded, DateCompleted dateCompleted,
-                Description description, Status status, Set<Tag> tags, List<Subtask> subtasks, User user) {
+                Description description, Status status, Set<Tag> tags, List<Subtask> subtasks, User user,
+                Recurrence recurrence) {
         requireAllNonNull(name, priority, deadline, description, tags);
         this.name = name;
         this.priority = priority;
@@ -105,6 +111,7 @@ public class Task {
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
         this.subtasks = new UniqueSubtaskList(subtasks);
+        this.recurrence = recurrence;
     }
 
     public Name getName() {
@@ -145,6 +152,10 @@ public class Task {
         return user;
     }
 
+    public Recurrence getRecurrence() {
+        return recurrence;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -178,7 +189,7 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, priority, deadline, description, tags, status, user);
+        return Objects.hash(name, priority, deadline, description, tags, status, user, recurrence);
     }
 
     @Override
@@ -196,7 +207,9 @@ public class Task {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" User : ")
-                .append(getUser());
+                .append(getUser())
+                .append("Recurrence: ")
+                .append(getRecurrence());
         return builder.toString();
     }
 

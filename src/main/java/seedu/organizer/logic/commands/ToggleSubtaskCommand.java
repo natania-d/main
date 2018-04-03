@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.organizer.commons.core.Messages;
 import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.exceptions.CommandException;
+import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.subtask.UniqueSubtaskList;
 import seedu.organizer.model.tag.Tag;
@@ -98,6 +99,7 @@ public class ToggleSubtaskCommand extends UndoableCommand {
         List<Subtask> originalSubtasks = new ArrayList<>(taskToEdit.getSubtasks());
         Status updatedStatus = taskToEdit.getStatus();
         User user = taskToEdit.getUser();
+        Recurrence updatedRecurrence = taskToEdit.getRecurrence();
 
         Subtask originalSubtask = originalSubtasks.get(subtaskIndex.getZeroBased());
         Name subtaskName = originalSubtask.getName();
@@ -109,7 +111,7 @@ public class ToggleSubtaskCommand extends UndoableCommand {
         UniqueSubtaskList updatedSubtasks = new UniqueSubtaskList(originalSubtasks);
 
         return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded, updatedDateCompleted,
-                updatedDescription, updatedStatus, updatedTags, updatedSubtasks.toList(), user);
+                updatedDescription, updatedStatus, updatedTags, updatedSubtasks.toList(), user, updatedRecurrence);
     }
 
     @Override

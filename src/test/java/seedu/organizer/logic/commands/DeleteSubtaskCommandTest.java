@@ -142,8 +142,8 @@ public class DeleteSubtaskCommandTest {
                 task.getStatus(),
                 task.getTags(),
                 subtasks,
-                task.getUser()
-        );
+                task.getUser(),
+                task.getRecurrence());
     }
 
     /**

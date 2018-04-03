@@ -196,7 +196,7 @@ public class Organizer implements ReadOnlyOrganizer {
         return new Task(
                 task.getName(), task.getPriority(), task.getDeadline(), task.getDateAdded(),
                 task.getDateCompleted(), task.getDescription(), task.getStatus(), correctTagReferences,
-                task.getSubtasks(), task.getUser());
+                task.getSubtasks(), task.getUser(), task.getRecurrence());
     }
 
     /**

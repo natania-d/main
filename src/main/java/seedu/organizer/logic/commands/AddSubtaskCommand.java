@@ -12,6 +12,7 @@ import java.util.Set;
 import seedu.organizer.commons.core.Messages;
 import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.exceptions.CommandException;
+import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.subtask.UniqueSubtaskList;
 import seedu.organizer.model.tag.Tag;
@@ -98,11 +99,13 @@ public class AddSubtaskCommand extends UndoableCommand {
         Set<Tag> updatedTags = taskToEdit.getTags();
         UniqueSubtaskList updatedSubtasks = new UniqueSubtaskList(taskToEdit.getSubtasks());
         Status updatedStatus = taskToEdit.getStatus();
+        Recurrence updatedRecurrence = taskToEdit.getRecurrence();
 
         updatedSubtasks.add(toAdd);
 
         return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded, oldDateCompleted,
-                updatedDescription, updatedStatus, updatedTags, updatedSubtasks.toList(), getCurrentlyLoggedInUser());
+                updatedDescription, updatedStatus, updatedTags, updatedSubtasks.toList(), getCurrentlyLoggedInUser(),
+                updatedRecurrence);
     }
 
     @Override

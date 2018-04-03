@@ -17,6 +17,7 @@ import seedu.organizer.commons.core.Messages;
 import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.exceptions.CommandException;
 import seedu.organizer.logic.commands.util.EditTaskDescriptor;
+import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
@@ -114,10 +115,11 @@ public class EditCommand extends UndoableCommand {
         Status updatedstatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
         List<Subtask> updatedSubtasks = editTaskDescriptor.getSubtasks().orElse(taskToEdit.getSubtasks());
+        Recurrence updatedRecurrence = taskToEdit.getRecurrence();
 
         return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded,
                 oldDateCompleted, updatedDescription, updatedstatus,
-                updatedTags, updatedSubtasks, getCurrentlyLoggedInUser());
+                updatedTags, updatedSubtasks, getCurrentlyLoggedInUser(), updatedRecurrence);
     }
 
     @Override

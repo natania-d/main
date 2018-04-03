@@ -112,8 +112,8 @@ public class ToggleCommandTest {
                 task.getStatus().getInverse(),
                 task.getTags(),
                 task.getSubtasks(),
-                task.getUser()
-        );
+                task.getUser(),
+                task.getRecurrence());
     }
 
     /**

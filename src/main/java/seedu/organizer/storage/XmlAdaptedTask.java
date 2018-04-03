@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.organizer.commons.exceptions.IllegalValueException;
+import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
@@ -51,6 +52,8 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private XmlAdaptedUser user;
+    @XmlElement(required = true)
+    private XmlAdaptedRecurrence recurrence;
 
     /**
      * Constructs an XmlAdaptedTask.
@@ -64,7 +67,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(String name, String priority, String deadline, String dateadded, String datecompleted,
                           String description, Boolean status, List<XmlAdaptedTag> tagged,
-                          List<XmlAdaptedSubtask> subtasks, XmlAdaptedUser user) {
+                          List<XmlAdaptedSubtask> subtasks, XmlAdaptedUser user, XmlAdaptedRecurrence recurrence) {
         this.name = name;
         this.priority = priority;
         this.deadline = deadline;
@@ -79,6 +82,7 @@ public class XmlAdaptedTask {
             this.subtasks = new ArrayList<>(subtasks);
         }
         this.user = user;
+        this.recurrence = recurrence;
     }
 
     /**
@@ -103,6 +107,7 @@ public class XmlAdaptedTask {
             subtasks.add(new XmlAdaptedSubtask(subtask));
         }
         user = new XmlAdaptedUser(source.getUser());
+        recurrence = new XmlAdaptedRecurrence(source.getRecurrence());
     }
 
     /**
@@ -188,7 +193,15 @@ public class XmlAdaptedTask {
 
         final List<Subtask> subtasks = new ArrayList<>(personSubtasks);
 
-        return new Task(name, priority, deadline, dateadded, datecompleted, description, status, tags, subtasks, user);
+        if (this.recurrence == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Recurrence.class.getSimpleName()));
+        }
+        final Recurrence recurrence = new Recurrence(this.recurrence.getIsRecurring(),
+                this.recurrence.getRecurrenceGroup());
+
+        return new Task(name, priority, deadline, dateadded, datecompleted, description, status, tags, subtasks, user,
+                recurrence);
     }
 
     @Override

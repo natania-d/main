@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.DateAdded;
@@ -45,6 +46,7 @@ public class TaskBuilder {
     private Set<Tag> tags;
     private List<Subtask> subtasks;
     private User user;
+    private Recurrence recurrence;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -57,6 +59,7 @@ public class TaskBuilder {
         tags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
         subtasks = SampleDataUtil.getSubtaskList(DEFAULT_SUBTASKS);
         user = DEFAULT_USER;
+        recurrence = new Recurrence();
     }
 
     /**
@@ -73,6 +76,7 @@ public class TaskBuilder {
         tags = new HashSet<>(taskToCopy.getTags());
         subtasks = new ArrayList<>(taskToCopy.getSubtasks());
         user = taskToCopy.getUser();
+        recurrence = taskToCopy.getRecurrence();
     }
 
     /**
@@ -162,7 +166,7 @@ public class TaskBuilder {
      */
     public Task build() {
         return new Task(name, priority, deadline, dateAdded, dateCompleted,
-                description, status, tags, subtasks, user);
+                description, status, tags, subtasks, user, recurrence);
     }
 
 }
