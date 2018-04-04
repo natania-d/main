@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.organizer.model.Organizer;
+import seedu.organizer.storage.XmlAdaptedRecurrence;
 import seedu.organizer.storage.XmlAdaptedSubtask;
 import seedu.organizer.storage.XmlAdaptedTag;
 import seedu.organizer.storage.XmlAdaptedTask;
@@ -52,6 +53,8 @@ public class XmlUtilTest {
             "Find some friends to play dota or csgo", false));
     //temporary fix for xml file bug due to PrioriTask's dependence on the current date
     private static final String current_date = "current_date";
+    private static final XmlAdaptedRecurrence VALID_RECURRENCE = new XmlAdaptedRecurrence(false,
+            0);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -93,7 +96,7 @@ public class XmlUtilTest {
                 MISSING_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 null, VALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
-                VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER);
+                VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER, VALID_RECURRENCE);
         assertEquals(expectedTask, actualTask);
     }
 
@@ -103,7 +106,7 @@ public class XmlUtilTest {
                 INVALID_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 VALID_NAME, INVALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
-                VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER);
+                VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER, VALID_RECURRENCE);
         assertEquals(expectedTask, actualTask);
     }
 
@@ -113,7 +116,7 @@ public class XmlUtilTest {
                 VALID_TASK_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
                 VALID_NAME, VALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
-                VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER);
+                VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER, VALID_RECURRENCE);
         assertEquals(expectedTask, actualTask);
     }
 
