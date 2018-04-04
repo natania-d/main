@@ -1,8 +1,8 @@
 package seedu.organizer.storage;
 
-import seedu.organizer.model.recurrence.Recurrence;
-
 import javax.xml.bind.annotation.XmlElement;
+
+import seedu.organizer.model.recurrence.Recurrence;
 
 //@@author natania
 /**

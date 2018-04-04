@@ -1,8 +1,8 @@
 package seedu.organizer.model.recurrence;
 
-import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
-
 import java.util.Objects;
+
+import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 
 //@@author natania
 /**
