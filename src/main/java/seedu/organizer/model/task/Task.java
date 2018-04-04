@@ -207,9 +207,7 @@ public class Task {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" User : ")
-                .append(getUser())
-                .append("Recurrence: ")
-                .append(getRecurrence());
+                .append(getUser());
         return builder.toString();
     }
 

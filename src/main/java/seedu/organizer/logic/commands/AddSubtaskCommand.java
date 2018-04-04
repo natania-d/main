@@ -35,7 +35,7 @@ public class AddSubtaskCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "adds";
     public static final String COMMAND_ALIAS = "as";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a subttask to a task. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a subtask to a task. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_NAME + "NAME "
             + "Example: " + COMMAND_WORD + " 1 "

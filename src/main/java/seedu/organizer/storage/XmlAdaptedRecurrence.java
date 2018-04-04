@@ -1,14 +1,10 @@
 package seedu.organizer.storage;
 
-//@@author natania
-
-import seedu.organizer.commons.exceptions.IllegalValueException;
 import seedu.organizer.model.recurrence.Recurrence;
-import seedu.organizer.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 
+//@@author natania
 /**
  * JAXB-friendly adapted version of the Recurrence.
  */

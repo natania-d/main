@@ -1,5 +1,7 @@
 package seedu.organizer.model.recurrence;
 
+import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
+
 import java.util.Objects;
 
 //@@author natania
@@ -25,7 +27,10 @@ public class Recurrence {
      *
      * @param index A valid identifying index for a group of recurring tasks.
      */
-    public Recurrence(int index) {
+    public Recurrence(boolean prevIsRecurring, int index, boolean recurCommand) throws TaskAlreadyRecurredException {
+        if (prevIsRecurring && recurCommand) {
+            throw new TaskAlreadyRecurredException();
+        }
         this.isRecurring = true; // false when task is not recurring, true when otherwise
         this.recurrenceGroup = index; // unique group of recurring tasks
     }
@@ -39,6 +44,14 @@ public class Recurrence {
     public Recurrence(boolean isRecurring, int index) {
         this.isRecurring = isRecurring; // false when task is not recurring, true when otherwise
         this.recurrenceGroup = index; // unique group of recurring tasks
+    }
+
+    public boolean getIsRecurring() {
+        return isRecurring;
+    }
+
+    public int getRecurrenceGroup() {
+        return recurrenceGroup;
     }
 
     @Override
