@@ -12,6 +12,7 @@ import seedu.organizer.logic.commands.AddCommand;
 import seedu.organizer.logic.commands.AddSubtaskCommand;
 import seedu.organizer.logic.commands.ClearCommand;
 import seedu.organizer.logic.commands.Command;
+import seedu.organizer.logic.commands.CurrentMonthCommand;
 import seedu.organizer.logic.commands.DeleteCommand;
 import seedu.organizer.logic.commands.DeleteSubtaskCommand;
 import seedu.organizer.logic.commands.EditCommand;
@@ -203,6 +204,12 @@ public class OrganizerParser {
 
         case NextMonthCommand.COMMAND_ALIAS:
             return new NextMonthCommand();
+
+        case CurrentMonthCommand.COMMAND_WORD:
+            return new CurrentMonthCommand();
+
+        case CurrentMonthCommand.COMMAND_ALIAS:
+            return new CurrentMonthCommand();
 
         case RecurWeeklyCommand.COMMAND_WORD:
             return new RecurWeeklyCommandParser().parse(arguments);
