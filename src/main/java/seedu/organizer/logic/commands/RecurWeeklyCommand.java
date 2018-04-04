@@ -30,7 +30,7 @@ import seedu.organizer.model.task.exceptions.TaskNotFoundException;
 /**
  * Recurs a task weekly for the specified number of weeks.
  */
-public class RecurWeeklyCommand extends UndoableCommand{
+public class RecurWeeklyCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "recurw";
     public static final String COMMAND_ALIAS = "rw";
