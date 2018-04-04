@@ -12,6 +12,9 @@ import seedu.organizer.logic.commands.RecurWeeklyCommand;
 import seedu.organizer.logic.parser.exceptions.ParseException;
 
 //@@author natania
+/**
+ * Parses input arguments and creates a new RecurWeeklyCommand object
+ */
 public class RecurWeeklyCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the RecurWeeklyCommand
