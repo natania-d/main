@@ -60,7 +60,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        OrganizerStorage organizerStorage = new XmlOrganizerStorage(userPrefs.getAddressBookFilePath());
+        OrganizerStorage organizerStorage = new XmlOrganizerStorage(userPrefs.getOrganizerFilePath());
         storage = new StorageManager(organizerStorage, userPrefsStorage);
 
         initLogging(config);
@@ -80,9 +80,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s organizer book and {@code userPrefs}. <br>
-     * The data from the sample organizer book will be used instead if {@code storage}'s organizer book is not found,
-     * or an empty organizer book will be used instead if errors occur when reading {@code storage}'s organizer book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s organizer and {@code userPrefs}. <br>
+     * The data from the sample organizer will be used instead if {@code storage}'s organizer is not found,
+     * or an empty organizer will be used instead if errors occur when reading {@code storage}'s organizer.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyOrganizer> organizerOptional;
@@ -188,7 +188,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Organizer ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

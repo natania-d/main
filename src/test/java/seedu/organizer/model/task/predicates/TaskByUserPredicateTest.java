@@ -1,4 +1,4 @@
-package seedu.organizer.model.task;
+package seedu.organizer.model.task.predicates;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -13,8 +13,8 @@ public class TaskByUserPredicateTest {
 
     @Test
     public void equals() {
-        User firstPredicate = new User("bob", "bob");
-        User secondPredicate = new User("mary", "mary");
+        User firstPredicate = new User("bobby", "bobby");
+        User secondPredicate = new User("mary123", "mary123");
 
         TaskByUserPredicate firstUserPredicate = new TaskByUserPredicate(firstPredicate);
         TaskByUserPredicate secondUserPredicate = new TaskByUserPredicate(secondPredicate);
@@ -32,7 +32,7 @@ public class TaskByUserPredicateTest {
         // null -> returns false
         assertFalse(firstUserPredicate.equals(null));
 
-        // different task -> returns false
+        // different user -> returns false
         assertFalse(firstUserPredicate.equals(secondUserPredicate));
     }
 

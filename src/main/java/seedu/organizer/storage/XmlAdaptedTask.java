@@ -116,21 +116,24 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
 
-        final List<Subtask> personSubtasks = new ArrayList<>();
+        final List<Subtask> taskSubtasks = new ArrayList<>();
         for (XmlAdaptedSubtask subtask : subtasks) {
-            personSubtasks.add(subtask.toModelType());
+            taskSubtasks.add(subtask.toModelType());
         }
 
         if (this.user == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, User.class.getSimpleName()));
         }
-        if (!User.isValidUsername(this.user.getUsername()) || !User.isValidPassword(this.user.getPassword())) {
-            throw new IllegalValueException(User.MESSAGE_USER_CONSTRAINTS);
+        if (!User.isValidUsername(this.user.getUsername())) {
+            throw new IllegalValueException(User.MESSAGE_USERNAME_CONSTRAINTS);
+        }
+        if (!User.isValidPassword(this.user.getPassword())) {
+            throw new IllegalValueException(User.MESSAGE_PASSWORD_CONSTRAINTS);
         }
         final User user = new User(this.user.getUsername(), this.user.getPassword());
 
@@ -189,9 +192,9 @@ public class XmlAdaptedTask {
         }
         final Status status = new Status(this.status);
 
-        final Set<Tag> tags = new HashSet<>(personTags);
+        final Set<Tag> tags = new HashSet<>(taskTags);
 
-        final List<Subtask> subtasks = new ArrayList<>(personSubtasks);
+        final List<Subtask> subtasks = new ArrayList<>(taskSubtasks);
 
         if (this.recurrence == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

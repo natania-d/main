@@ -1,7 +1,7 @@
 package seedu.organizer.logic.commands;
 
 import static seedu.organizer.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.organizer.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.organizer.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.organizer.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
 import static seedu.organizer.testutil.TypicalTasks.getTypicalOrganizer;
@@ -16,6 +16,7 @@ import seedu.organizer.model.ModelManager;
 import seedu.organizer.model.UserPrefs;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -37,6 +38,8 @@ public class ListCommandTest {
             e.printStackTrace();
         } catch (CurrentlyLoggedInException e) {
             e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
+            e.printStackTrace();
         }
 
         listCommand = new ListCommand();
@@ -50,7 +53,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_TASK);
+        showTaskAtIndex(model, INDEX_FIRST_TASK);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

@@ -14,17 +14,18 @@ import seedu.organizer.commons.core.LogsCenter;
 import seedu.organizer.commons.events.model.OrganizerChangedEvent;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.Task;
-import seedu.organizer.model.task.TaskByUserPredicate;
 import seedu.organizer.model.task.exceptions.DuplicateTaskException;
 import seedu.organizer.model.task.exceptions.TaskNotFoundException;
+import seedu.organizer.model.task.predicates.TaskByUserPredicate;
 import seedu.organizer.model.user.User;
 import seedu.organizer.model.user.UserWithQuestionAnswer;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.DuplicateUserException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 /**
- * Represents the in-memory model of the organizer book data.
+ * Represents the in-memory model of the organizer data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -43,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(organizer, userPrefs);
 
-        logger.fine("Initializing with organizer book: " + organizer + " and user prefs " + userPrefs);
+        logger.fine("Initializing with organizer: " + organizer + " and user prefs " + userPrefs);
 
         this.organizer = new Organizer(organizer);
         currentlyLoggedInUser = this.organizer.getCurrentLoggedInUser();
@@ -97,7 +98,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void loginUser(User user) throws UserNotFoundException, CurrentlyLoggedInException {
+    public synchronized void loginUser(User user)
+            throws UserNotFoundException, CurrentlyLoggedInException, UserPasswordWrongException {
         organizer.loginUser(user);
         currentlyLoggedInUser = organizer.getCurrentLoggedInUser();
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
@@ -110,6 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         currentlyLoggedInUser = organizer.getCurrentLoggedInUser();
         updateFilteredTaskList(PREDICATE_SHOW_NO_TASKS);
         indicateOrganizerChanged();
+
     }
 
     @Override

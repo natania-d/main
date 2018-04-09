@@ -12,14 +12,14 @@ import seedu.organizer.model.task.Task;
 import seedu.organizer.model.task.exceptions.DuplicateTaskException;
 
 /**
- * Adds a task to the organizer book.
+ * Adds a task to the organizer.
  */
 public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_ALIAS = "a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the organizer book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the organizer. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PRIORITY + "PRIORITY "
@@ -30,12 +30,12 @@ public class AddCommand extends UndoableCommand {
             + PREFIX_NAME + "CS2103T "
             + PREFIX_PRIORITY + "9 "
             + PREFIX_DEADLINE + "2018-03-11 "
-            + PREFIX_DESCRIPTION + "Refactor AddressBook to PrioriTask "
+            + PREFIX_DESCRIPTION + "Refactor Organizer to PrioriTask "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the organizer book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the organizer";
 
     private final Task toAdd;
 
@@ -52,11 +52,10 @@ public class AddCommand extends UndoableCommand {
         requireNonNull(model);
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
-
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

@@ -23,6 +23,7 @@ import seedu.organizer.model.UserPrefs;
 import seedu.organizer.model.task.Task;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -32,7 +33,7 @@ public class ToggleCommandTest {
     private Model model = new ModelManager(getTypicalOrganizer(), new UserPrefs());
 
     @Before
-    public void setUp() throws UserNotFoundException, CurrentlyLoggedInException {
+    public void setUp() throws UserNotFoundException, CurrentlyLoggedInException, UserPasswordWrongException {
         model.loginUser(ADMIN_USER);
     }
 
@@ -91,7 +92,7 @@ public class ToggleCommandTest {
         toggleCommand.execute();
         undoRedoStack.push(toggleCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered task list to show all persons
+        // undo -> reverts organizer back to previous state and filtered task list to show all tasks
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first task edited again

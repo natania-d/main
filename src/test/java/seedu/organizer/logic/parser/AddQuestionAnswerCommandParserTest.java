@@ -5,7 +5,8 @@ import static seedu.organizer.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.organizer.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.organizer.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.organizer.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.organizer.model.user.UserWithQuestionAnswer.MESSAGE_QUESTION_ANSWER_CONSTRAINTS;
+import static seedu.organizer.model.user.UserWithQuestionAnswer.MESSAGE_ANSWER_CONSTRAINTS;
+import static seedu.organizer.model.user.UserWithQuestionAnswer.MESSAGE_QUESTION_CONSTRAINTS;
 import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
 
 import org.junit.Before;
@@ -17,6 +18,7 @@ import seedu.organizer.model.ModelManager;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.DuplicateUserException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 //author dominickenn
 public class AddQuestionAnswerCommandParserTest {
@@ -43,6 +45,8 @@ public class AddQuestionAnswerCommandParserTest {
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         } catch (CurrentlyLoggedInException e) {
+            e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
             e.printStackTrace();
         }
     }
@@ -72,15 +76,15 @@ public class AddQuestionAnswerCommandParserTest {
         assertParseFailure(parser,
                 AddQuestionAnswerCommand.COMMAND_WORD + " "
                 + validQuestion + " " + invalidAnswer,
-                MESSAGE_QUESTION_ANSWER_CONSTRAINTS); // invalid answer
+                MESSAGE_ANSWER_CONSTRAINTS); // invalid answer
         assertParseFailure(parser,
                 AddQuestionAnswerCommand.COMMAND_WORD + " "
                 + invalidQuestion + " " + validAnswer,
-                MESSAGE_QUESTION_ANSWER_CONSTRAINTS); // invalid question
+                MESSAGE_QUESTION_CONSTRAINTS); // invalid question
         assertParseFailure(parser,
                 AddQuestionAnswerCommand.COMMAND_WORD + " "
                 + invalidQuestion + " " + validAnswer,
-                MESSAGE_QUESTION_ANSWER_CONSTRAINTS); // invalid question and answer
+                MESSAGE_QUESTION_CONSTRAINTS); // invalid question and answer
     }
 
     @Test

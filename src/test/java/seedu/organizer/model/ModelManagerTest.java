@@ -20,11 +20,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.organizer.model.tag.Tag;
-import seedu.organizer.model.task.NameContainsKeywordsPredicate;
 import seedu.organizer.model.task.Task;
+import seedu.organizer.model.task.predicates.NameContainsKeywordsPredicate;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.DuplicateUserException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 import seedu.organizer.testutil.OrganizerBuilder;
 import seedu.organizer.testutil.TaskBuilder;
 
@@ -102,6 +103,8 @@ public class ModelManagerTest {
             e.printStackTrace();
         } catch (DuplicateUserException e) {
             e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
+            e.printStackTrace();
         }
         assertFalse(modelManager.equals(expectedModel));
 
@@ -120,6 +123,8 @@ public class ModelManagerTest {
         } catch (CurrentlyLoggedInException e) {
             e.printStackTrace();
         } catch (DuplicateUserException e) {
+            e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
             e.printStackTrace();
         }
         assertTrue(modelManager.equals(differentModel));

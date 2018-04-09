@@ -8,6 +8,7 @@ import seedu.organizer.logic.commands.exceptions.CommandException;
 import seedu.organizer.model.user.User;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 //@@author dominickenn
 /**
@@ -29,6 +30,7 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_SUCCESS = "User log in successful : %1$s";
     public static final String MESSAGE_USER_NOT_FOUND = "This user does not exist";
     public static final String MESSAGE_CURRENTLY_LOGGED_IN = "A user is currently loggd in";
+    public static final String MESSAGE_WRONG_PASSWORD = "Wrong password";
 
     private final User toLogin;
 
@@ -45,13 +47,15 @@ public class LoginCommand extends Command {
         requireNonNull(model);
         try {
             model.loginUser(toLogin);
+            history.clear();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin));
         } catch (UserNotFoundException unf) {
             throw new CommandException(MESSAGE_USER_NOT_FOUND);
         } catch (CurrentlyLoggedInException cli) {
             throw new CommandException(MESSAGE_CURRENTLY_LOGGED_IN);
+        } catch (UserPasswordWrongException e) {
+            throw new CommandException(MESSAGE_WRONG_PASSWORD);
         }
-
     }
 
     @Override

@@ -27,13 +27,14 @@ import seedu.organizer.logic.commands.ForgotPasswordCommand;
 import seedu.organizer.logic.commands.HelpCommand;
 import seedu.organizer.logic.commands.HistoryCommand;
 import seedu.organizer.logic.commands.ListCommand;
+import seedu.organizer.logic.commands.ListCompletedTasksCommand;
+import seedu.organizer.logic.commands.ListUncompletedTasksCommand;
 import seedu.organizer.logic.commands.LoginCommand;
 import seedu.organizer.logic.commands.LogoutCommand;
 import seedu.organizer.logic.commands.NextMonthCommand;
 import seedu.organizer.logic.commands.PreviousMonthCommand;
 import seedu.organizer.logic.commands.RecurWeeklyCommand;
 import seedu.organizer.logic.commands.RedoCommand;
-import seedu.organizer.logic.commands.SelectCommand;
 import seedu.organizer.logic.commands.SignUpCommand;
 import seedu.organizer.logic.commands.ToggleCommand;
 import seedu.organizer.logic.commands.ToggleSubtaskCommand;
@@ -133,12 +134,6 @@ public class OrganizerParser {
         case ToggleSubtaskCommand.COMMAND_ALIAS:
             return new ToggleSubtaskCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_ALIAS:
-            return new SelectCommandParser().parse(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -192,6 +187,18 @@ public class OrganizerParser {
 
         case ListCommand.COMMAND_ALIAS:
             return new ListCommand();
+
+        case ListUncompletedTasksCommand.COMMAND_WORD:
+            return new ListUncompletedTasksCommand();
+
+        case ListUncompletedTasksCommand.COMMAND_ALIAS:
+            return new ListUncompletedTasksCommand();
+
+        case ListCompletedTasksCommand.COMMAND_WORD:
+            return new ListCompletedTasksCommand();
+
+        case ListCompletedTasksCommand.COMMAND_ALIAS:
+            return new ListCompletedTasksCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

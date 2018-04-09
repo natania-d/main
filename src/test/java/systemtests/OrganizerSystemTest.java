@@ -6,8 +6,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 //import static seedu.organizer.ui.CalendarPanel.DEFAULT_PAGE;
 //import static seedu.organizer.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
+import static seedu.organizer.ui.StatusBarFooter.CURRENT_USER_STATUS_UPDATED;
 import static seedu.organizer.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.organizer.ui.StatusBarFooter.TOTAL_TASKS_STATUS;
 //import static seedu.organizer.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.organizer.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -33,11 +34,9 @@ import guitests.guihandles.TaskListPanelHandle;
 //import seedu.organizer.MainApp;
 import seedu.organizer.TestApp;
 import seedu.organizer.commons.core.EventsCenter;
-import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.ClearCommand;
 import seedu.organizer.logic.commands.FindNameCommand;
 import seedu.organizer.logic.commands.ListCommand;
-import seedu.organizer.logic.commands.SelectCommand;
 import seedu.organizer.model.Model;
 import seedu.organizer.model.Organizer;
 import seedu.organizer.testutil.TypicalTasks;
@@ -70,10 +69,10 @@ public abstract class OrganizerSystemTest {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
+        testApp.loginAdmin();
 
         assertApplicationStartingStateIsCorrect();
 
-        testApp.loginAdmin();
     }
 
     @After
@@ -105,7 +104,7 @@ public abstract class OrganizerSystemTest {
     }
 
     public TaskListPanelHandle getTaskListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+        return mainWindowHandle.getTaskListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -138,7 +137,7 @@ public abstract class OrganizerSystemTest {
     }
 
     /**
-     * Displays all persons in the organizer book.
+     * Displays all tasks in the organizer.
      */
     protected void showAllTasks() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -146,7 +145,7 @@ public abstract class OrganizerSystemTest {
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all tasks with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showTasksWithName(String keyword) {
         executeCommand(FindNameCommand.COMMAND_WORD + " " + keyword);
@@ -154,15 +153,7 @@ public abstract class OrganizerSystemTest {
     }
 
     /**
-     * Selects the task at {@code index} of the displayed list.
-     */
-    protected void selectTask(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getTaskListPanel().getSelectedCardIndex());
-    }
-
-    /**
-     * Deletes all persons in the organizer book.
+     * Deletes all tasks in the organizer.
      */
     protected void deleteAllTasks() {
         executeCommand(ClearCommand.COMMAND_WORD);
@@ -172,7 +163,7 @@ public abstract class OrganizerSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the model and storage contains the same task objects as {@code expectedModel}
-     * and the task list panel displays the persons in the model correctly.
+     * and the task list panel displays the tasks in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
@@ -189,51 +180,8 @@ public abstract class OrganizerSystemTest {
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         statusBarFooterHandle.rememberSaveLocation();
-        statusBarFooterHandle.rememberTotalTasksStatus();
+        statusBarFooterHandle.rememberCurrentUserStatus();
         statusBarFooterHandle.rememberSyncStatus();
-        getTaskListPanel().rememberSelectedTaskCard();
-    }
-
-    /**
-     * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
-     * of the previously selected task.
-     *
-     * @see CalendarPanelHandle#isUrlChanged()
-     */
-    protected void assertSelectedCardDeselected() {
-        /*assertFalse(getCalendarPanel().isUrlChanged());
-        assertFalse(getTaskListPanel().isAnyCardSelected());*/
-    }
-
-    /**
-     * Asserts that the browser's url is changed to display the details of the task in the task list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     *
-     * @see CalendarPanelHandle#isUrlChanged()
-     * @see TaskListPanelHandle#isSelectedTaskCardChanged()
-     */
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        /*String selectedCardName = getTaskListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(CalendarPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.");
-        }
-        assertEquals(expectedUrl, getCalendarPanel().getLoadedUrl());
-
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getTaskListPanel().getSelectedCardIndex());*/
-    }
-
-    /**
-     * Asserts that the browser's url and the selected card in the task list panel remain unchanged.
-     *
-     * @see CalendarPanelHandle#isUrlChanged()
-     * @see TaskListPanelHandle#isSelectedTaskCardChanged()
-     */
-    protected void assertSelectedCardUnchanged() {
-        /*assertFalse(getCalendarPanel().isUrlChanged());
-        assertFalse(getTaskListPanel().isSelectedTaskCardChanged());*/
     }
 
     /**
@@ -256,7 +204,7 @@ public abstract class OrganizerSystemTest {
     protected void assertStatusBarUnchanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isTotalTasksStatusChanged());
+        assertFalse(handle.isCurrentUserStatusChanged());
         //Does not apply as login occurs first
         //assertFalse(handle.isSyncStatusChanged());
     }
@@ -273,7 +221,7 @@ public abstract class OrganizerSystemTest {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isTotalTasksStatusChanged());
+        assertFalse(handle.isCurrentUserStatusChanged());
     }
 
     /**
@@ -289,8 +237,8 @@ public abstract class OrganizerSystemTest {
             assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
             //Does not apply as login occurs first
             //assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-            assertEquals(String.format(TOTAL_TASKS_STATUS, getModel().getOrganizer().getCurrentUserTaskList().size()),
-                getStatusBarFooter().getTotalTasksStatus());
+            assertEquals(String.format(CURRENT_USER_STATUS_UPDATED, ADMIN_USER.username),
+                getStatusBarFooter().getCurrentUserStatus());
         } catch (Exception e) {
             throw new AssertionError("Starting state is wrong.", e);
         }
@@ -299,7 +247,7 @@ public abstract class OrganizerSystemTest {
     /**
      * Asserts that the sync status in the status bar was changed to the timing of
      * {@code ClockRule#getInjectedClock()}, and total tasks was changed to match the total
-     * number of persons in the address book, while the save location remains the same.
+     * number of tasks in the organizer, while the save location remains the same.
      */
     protected void assertStatusBarChangedExceptSaveLocation() {
         StatusBarFooterHandle handle = getStatusBarFooter();
@@ -308,8 +256,8 @@ public abstract class OrganizerSystemTest {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
 
-        final int totalTasks = testApp.getModel().getOrganizer().getTaskList().size();
-        assertEquals(String.format(TOTAL_TASKS_STATUS, totalTasks), handle.getTotalTasksStatus());
+        final String currentUsername = ADMIN_USER.username;
+        assertEquals(String.format(CURRENT_USER_STATUS_UPDATED, currentUsername), handle.getCurrentUserStatus());
 
         assertFalse(handle.isSaveLocationChanged());
     }

@@ -24,6 +24,7 @@ import seedu.organizer.model.user.UserWithQuestionAnswer;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.DuplicateUserException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 /**
  * Wraps all data at the organizer-book level
@@ -106,7 +107,8 @@ public class Organizer implements ReadOnlyOrganizer {
     /**
      * Sets currentLoggedInUser of the organizer
      */
-    public void loginUser(User user) throws UserNotFoundException, CurrentlyLoggedInException {
+    public void loginUser(User user)
+            throws UserNotFoundException, CurrentlyLoggedInException, UserPasswordWrongException {
         requireNonNull(user);
         users.setCurrentLoggedInUser(user);
     }
@@ -128,6 +130,7 @@ public class Organizer implements ReadOnlyOrganizer {
         users.setCurrentLoggedInUserToNull();
     }
 
+    @Override
     public User getCurrentLoggedInUser() {
         return users.getCurrentLoggedInUser();
     }
@@ -149,7 +152,7 @@ public class Organizer implements ReadOnlyOrganizer {
     //// task-level operations
 
     /**
-     * Adds a task to the organizer book.
+     * Adds a task to the organizer.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *

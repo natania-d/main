@@ -3,7 +3,7 @@ package seedu.organizer.logic.commands;
 import static seedu.organizer.logic.UndoRedoStackUtil.prepareStack;
 import static seedu.organizer.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.organizer.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.organizer.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.organizer.logic.commands.CommandTestUtil.deleteFirstTask;
 import static seedu.organizer.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.organizer.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
@@ -22,6 +22,7 @@ import seedu.organizer.model.ModelManager;
 import seedu.organizer.model.UserPrefs;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 public class RedoCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -53,14 +54,16 @@ public class RedoCommandTest {
             e.printStackTrace();
         } catch (CurrentlyLoggedInException e) {
             e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
+            e.printStackTrace();
         }
 
         // multiple commands in redoStack
-        deleteFirstPerson(expectedModel);
+        deleteFirstTask(expectedModel);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single command in redoStack
-        deleteFirstPerson(expectedModel);
+        deleteFirstTask(expectedModel);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no command in redoStack

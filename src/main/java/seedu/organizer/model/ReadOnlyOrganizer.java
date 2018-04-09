@@ -6,7 +6,7 @@ import seedu.organizer.model.task.Task;
 import seedu.organizer.model.user.User;
 
 /**
- * Unmodifiable view of an organizer book
+ * Unmodifiable view of an organizer
  */
 public interface ReadOnlyOrganizer {
 
@@ -33,5 +33,10 @@ public interface ReadOnlyOrganizer {
      * This list will not contain any duplicate users.
      */
     ObservableList<User> getUserList();
+
+    /**
+     * Returns the currently logged in user
+     */
+    User getCurrentLoggedInUser();
 
 }

@@ -2,6 +2,7 @@ package seedu.organizer.model.user;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.organizer.commons.util.AppUtil.checkArgument;
+import static seedu.organizer.commons.util.CollectionUtil.requireAllNonNull;
 
 //@@author dominickenn
 /**
@@ -12,10 +13,14 @@ import static seedu.organizer.commons.util.AppUtil.checkArgument;
  */
 public class User {
 
-    public static final String MESSAGE_USER_CONSTRAINTS = "Username and password should be alphanumeric"
-                                                            + " and must not contain spaces";
-    public static final String USERNAME_VALIDATION_REGEX = "\\p{Alnum}+";
-    public static final String PASSWORD_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_USERNAME_CONSTRAINTS = "Username should be alphanumeric, "
+                                                            + "be at least of length 5, "
+                                                            + "and must not contain spaces";
+    public static final String MESSAGE_PASSWORD_CONSTRAINTS = "Password should be alphanumeric"
+            + ", be at least of length 5, "
+            + " and must not contain spaces";
+    public static final String USERNAME_VALIDATION_REGEX = "\\p{Alnum}{5,}+";
+    public static final String PASSWORD_VALIDATION_REGEX = "\\p{Alnum}{5,}+";
 
     public final String username;
     public final String password;
@@ -28,8 +33,8 @@ public class User {
      */
     public User(String username, String password) {
         requireNonNull(username, password);
-        checkArgument(isValidUsername(username), MESSAGE_USER_CONSTRAINTS);
-        checkArgument(isValidPassword(password), MESSAGE_USER_CONSTRAINTS);
+        checkArgument(isValidUsername(username), MESSAGE_USERNAME_CONSTRAINTS);
+        checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
         this.username = username;
         this.password = password;
     }
@@ -48,6 +53,27 @@ public class User {
         return test.matches(PASSWORD_VALIDATION_REGEX);
     }
 
+    /**
+     * Used in login feature
+     * Used to check if two users' username matches
+     */
+    public static boolean usernameMatches(User user1, User user2) {
+        requireAllNonNull(user1, user2);
+        return user1.username.equals(user2.username);
+    }
+
+    /**
+     * Used in login feature
+     * Used to check if two users' password matches
+     */
+    public static boolean passwordMatches(User user1, User user2) {
+        requireAllNonNull(user1, user2);
+        return user1.password.equals(user2.password);
+    }
+
+    /**
+     * Used to ensure no duplicate users, since users with the same username are considered duplicates
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

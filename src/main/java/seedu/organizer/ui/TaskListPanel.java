@@ -14,11 +14,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.organizer.commons.core.LogsCenter;
 import seedu.organizer.commons.events.ui.JumpToListRequestEvent;
-import seedu.organizer.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.organizer.model.task.Task;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "TaskListPanel.fxml";
@@ -35,20 +34,9 @@ public class TaskListPanel extends UiPart<Region> {
 
     private void setConnections(ObservableList<Task> taskList) {
         ObservableList<TaskCard> mappedList = EasyBind.map(
-                taskList, (person) -> new TaskCard(person, taskList.indexOf(person) + 1));
+                taskList, (task) -> new TaskCard(task, taskList.indexOf(task) + 1));
         taskListView.setItems(mappedList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                        raise(new TaskPanelSelectionChangedEvent(newValue));
-                    }
-                });
     }
 
     /**

@@ -2,8 +2,8 @@ package seedu.organizer.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static seedu.organizer.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.organizer.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.organizer.logic.commands.CommandTestUtil.deleteFirstTask;
+import static seedu.organizer.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.organizer.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
 import static seedu.organizer.testutil.TypicalTasks.getTypicalOrganizer;
@@ -19,6 +19,7 @@ import seedu.organizer.model.task.Task;
 import seedu.organizer.model.task.exceptions.TaskNotFoundException;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 public class UndoableCommandTest {
     private final Model model = new ModelManager(getTypicalOrganizer(), new UserPrefs());
@@ -35,18 +36,20 @@ public class UndoableCommandTest {
             e.printStackTrace();
         } catch (CurrentlyLoggedInException e) {
             e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
+            e.printStackTrace();
         }
     }
 
     @Test
     public void executeUndo() throws Exception {
         dummyCommand.execute();
-        deleteFirstPerson(expectedModel);
+        deleteFirstTask(expectedModel);
         assertEquals(expectedModel, model);
 
-        showPersonAtIndex(model, INDEX_FIRST_TASK);
+        showTaskAtIndex(model, INDEX_FIRST_TASK);
 
-        // undo() should cause the model's filtered list to show all persons
+        // undo() should cause the model's filtered list to show all tasks
         dummyCommand.undo();
         expectedModel = new ModelManager(getTypicalOrganizer(), new UserPrefs());
         expectedModel.loginUser(ADMIN_USER);
@@ -55,11 +58,11 @@ public class UndoableCommandTest {
 
     @Test
     public void redo() {
-        showPersonAtIndex(model, INDEX_FIRST_TASK);
+        showTaskAtIndex(model, INDEX_FIRST_TASK);
 
-        // redo() should cause the model's filtered list to show all persons
+        // redo() should cause the model's filtered list to show all tasks
         dummyCommand.redo();
-        deleteFirstPerson(expectedModel);
+        deleteFirstTask(expectedModel);
         assertEquals(expectedModel, model);
     }
 

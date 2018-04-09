@@ -29,6 +29,7 @@ import seedu.organizer.model.user.UserWithQuestionAnswer;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.DuplicateUserException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 
 //@@author dominickenn
 public class LoginCommandTest {
@@ -64,9 +65,20 @@ public class LoginCommandTest {
     }
 
     @Test
+    public void execute_wrongPassword_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubThrowingWrongPasswordException();
+        User invalidUser = new User("admin", "wrongPassword");
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(LoginCommand.MESSAGE_WRONG_PASSWORD);
+
+        getLoginCommandForUser(invalidUser, modelStub).execute();
+    }
+
+    @Test
     public void equals() {
         User alice = new User("alice", "alice123");
-        User bob = new User("bob", "bob123");
+        User bob = new User("bobby", "bobby123");
         LoginCommand loginAliceCommand = new LoginCommand(alice);
         LoginCommand loginBobCommand = new LoginCommand(bob);
 
@@ -106,7 +118,8 @@ public class LoginCommandTest {
         }
 
         @Override
-        public void loginUser(User user) throws UserNotFoundException, CurrentlyLoggedInException {
+        public void loginUser(User user)
+                throws UserNotFoundException, CurrentlyLoggedInException, UserPasswordWrongException {
             fail("This method should not be called");
         }
 
@@ -182,6 +195,21 @@ public class LoginCommandTest {
         @Override
         public void loginUser(User user) throws UserNotFoundException {
             throw new UserNotFoundException();
+        }
+
+        @Override
+        public ReadOnlyOrganizer getOrganizer() {
+            return new Organizer();
+        }
+    }
+
+    /**
+     * A Model stub that always throw a UserPasswordWrongException when trying to login.
+     */
+    private class ModelStubThrowingWrongPasswordException extends ModelStub {
+        @Override
+        public void loginUser(User user) throws UserPasswordWrongException {
+            throw new UserPasswordWrongException();
         }
 
         @Override

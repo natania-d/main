@@ -20,6 +20,7 @@ import seedu.organizer.model.ReadOnlyOrganizer;
 import seedu.organizer.model.UserPrefs;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
+import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
 import seedu.organizer.storage.UserPrefsStorage;
 import seedu.organizer.storage.XmlSerializableOrganizer;
 import seedu.organizer.testutil.TestUtil;
@@ -69,7 +70,7 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setOrganizerFilePath(saveFileLocation);
         userPrefs.setOrganizerName(ORGANIZER_NAME);
         return userPrefs;
     }
@@ -104,6 +105,8 @@ public class TestApp extends MainApp {
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         } catch (CurrentlyLoggedInException e) {
+            e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
             e.printStackTrace();
         }
         ModelHelper.setFilteredList(copy, model.getFilteredTaskList());
@@ -141,6 +144,8 @@ public class TestApp extends MainApp {
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         } catch (CurrentlyLoggedInException e) {
+            e.printStackTrace();
+        } catch (UserPasswordWrongException e) {
             e.printStackTrace();
         }
     }
