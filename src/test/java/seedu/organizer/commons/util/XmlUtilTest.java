@@ -44,7 +44,6 @@ public class XmlUtilTest {
     private static final String VALID_NAME = "Work on PrioriTask";
     private static final String VALID_PRIORITY = "9";
     private static final String VALID_DEADLINE = "2018-07-16";
-    private static final String VALID_DATEADDED = LocalDate.now().toString();
     private static final String VALID_DATECOMPLETED = "not completed";
     private static final String VALID_DESCRIPTION = "Refactor Address to Description";
     private static final Boolean VALID_STATUS = null;
@@ -95,7 +94,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 MISSING_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                null, VALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
+                null, VALID_PRIORITY, VALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
                 VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER, VALID_RECURRENCE);
         assertEquals(expectedTask, actualTask);
     }
@@ -105,7 +104,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 INVALID_TASK_FIELD_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                VALID_NAME, INVALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
+                VALID_NAME, INVALID_PRIORITY, VALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
                 VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER, VALID_RECURRENCE);
         assertEquals(expectedTask, actualTask);
     }
@@ -115,7 +114,7 @@ public class XmlUtilTest {
         XmlAdaptedTask actualTask = XmlUtil.getDataFromFile(
                 VALID_TASK_FILE, XmlAdaptedTaskWithRootElement.class);
         XmlAdaptedTask expectedTask = new XmlAdaptedTask(
-                VALID_NAME, VALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
+                VALID_NAME, VALID_PRIORITY, VALID_PRIORITY, VALID_DEADLINE, current_date, VALID_DATECOMPLETED,
                 VALID_DESCRIPTION, VALID_STATUS, VALID_TAGS, VALID_SUBTASKS, VALID_XML_ADAPTED_USER, VALID_RECURRENCE);
         assertEquals(expectedTask, actualTask);
     }

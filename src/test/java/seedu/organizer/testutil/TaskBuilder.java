@@ -119,6 +119,7 @@ public class TaskBuilder {
      */
     public TaskBuilder withStatus(Boolean status) {
         this.status = new Status(status);
+        this.dateCompleted = new DateCompleted(status);
         return this;
     }
 
@@ -127,6 +128,7 @@ public class TaskBuilder {
      */
     public TaskBuilder withPriority(String updatedPriority) {
         this.updatedPriority = new Priority(updatedPriority);
+        this.basePriority = new Priority(updatedPriority);
         return this;
     }
 
