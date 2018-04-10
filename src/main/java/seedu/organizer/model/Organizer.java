@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.tag.UniqueTagList;
 import seedu.organizer.model.task.Task;

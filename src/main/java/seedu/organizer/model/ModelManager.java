@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.organizer.commons.core.ComponentManager;
 import seedu.organizer.commons.core.LogsCenter;
 import seedu.organizer.commons.events.model.OrganizerChangedEvent;
-import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.Task;
 import seedu.organizer.model.task.exceptions.DuplicateTaskException;

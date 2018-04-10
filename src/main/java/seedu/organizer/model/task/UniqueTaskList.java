@@ -15,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.organizer.commons.util.CollectionUtil;
 import seedu.organizer.model.recurrence.Recurrence;
-import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 import seedu.organizer.model.subtask.Subtask;
 import seedu.organizer.model.subtask.UniqueSubtaskList;
 import seedu.organizer.model.tag.Tag;
@@ -235,7 +234,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void addRecurringTask(Task task, LocalDate newDeadline) throws DuplicateTaskException {
         requireNonNull(task);
-        Task recurredTask = createRecurredTask(task,newDeadline);
+        Task recurredTask = createRecurredTask(task, newDeadline);
         if (contains(recurredTask)) {
             throw new DuplicateTaskException();
         }

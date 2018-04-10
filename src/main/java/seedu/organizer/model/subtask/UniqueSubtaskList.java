@@ -12,8 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.organizer.commons.exceptions.DuplicateDataException;
 import seedu.organizer.commons.util.CollectionUtil;
-import seedu.organizer.logic.parser.ToggleSubtaskCommandParser;
-import seedu.organizer.model.task.Status;
 
 /**
  * A list of subtasks that enforces no nulls and uniqueness between its elements.

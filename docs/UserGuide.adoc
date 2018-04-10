@@ -532,7 +532,7 @@ Returns any task having deadlines `2018-03-17`, `2018-09-04`, or `2018-03-21`.
 
 _Locate all tasks with a common tag_
 
-=== Mark task as complete: `toggle` or `t` `[since v1.2]`
+=== Marking task as complete: `toggle` or `t` `[since v1.2]`
 
 Toggle the status of the task identified by the index number used in the last task listing
 between `Completed` and `Not Completed`. +
@@ -566,6 +566,10 @@ Clear all of your tasks from PrioriTask. +
 ====
 [format-title]#Format:# `clear`
 ====
+
+=== Recurring a task : `recurw` or `rw`
+
+
 
 == Subtask Management Features
 
