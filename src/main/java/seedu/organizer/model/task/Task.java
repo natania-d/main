@@ -202,7 +202,8 @@ public class Task {
 
     //@@author dominickenn
     /**
-     * @return a Task comparator based on updatedPriority
+     * Task's with higher priority are given preference
+     * @return a Task comparator based on priority
      */
     public static Comparator<Task> priorityComparator() {
         return new Comparator<Task>() {

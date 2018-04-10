@@ -59,21 +59,25 @@ public class Organizer implements ReadOnlyOrganizer {
      */
     public Organizer(ReadOnlyOrganizer toBeCopied) {
         this();
+        requireNonNull(toBeCopied);
         resetData(toBeCopied);
     }
 
     //// list overwrite operations
 
     public void setTasks(List<Task> tasks) throws DuplicateTaskException {
+        requireNonNull(tasks);
         this.tasks.setTasks(tasks);
     }
 
     public void setTags(Set<Tag> tags) {
+        requireNonNull(tags);
         this.tags.setTags(tags);
     }
 
     //@@author dominickenn
     public void setUsers(List<User> users) {
+        requireNonNull(users);
         this.users.setUsers(users);
     }
     //@@author
@@ -97,9 +101,10 @@ public class Organizer implements ReadOnlyOrganizer {
     }
 
     //@@author dominickenn
-    //// user=level operations
+    //// user-level operations
+
     /**
-     * Adds a user to the organizer
+     * Adds {@code user} to the organizer
      */
     public void addUser(User user) throws DuplicateUserException {
         requireNonNull(user);
@@ -107,16 +112,18 @@ public class Organizer implements ReadOnlyOrganizer {
     }
 
     /**
-     * Sets currentLoggedInUser of the organizer
+     * Sets {@code user} as the currentLoggedInUser of the organizer
      */
     public void loginUser(User user)
-            throws UserNotFoundException, CurrentlyLoggedInException, UserPasswordWrongException {
+            throws UserNotFoundException,
+            UserPasswordWrongException,
+            CurrentlyLoggedInException {
         requireNonNull(user);
         users.setCurrentLoggedInUser(user);
     }
 
     /**
-     * Replaces a user with another user in users
+     * Replaces {@code toRemove} with {@code toAdd} in users
      */
     public void updateUserToUserWithQuestionAnswer(
             User toRemove, UserWithQuestionAnswer toAdd) {
@@ -145,6 +152,10 @@ public class Organizer implements ReadOnlyOrganizer {
         tasks.deleteUserTasks(user);
     }
 
+    /**
+     * Returns a user in users containing the {@code username}
+     * There can only be one such user
+     */
     public User getUserbyUsername(String username) throws UserNotFoundException {
         requireNonNull(username);
         return users.getUserByUsername(username);
