@@ -37,7 +37,8 @@ public class TaskBuilder {
     public static final String DEFAULT_SUBTASKS = "Buy some answer";
 
     private Name name;
-    private Priority priority;
+    private Priority updatedPriority;
+    private Priority basePriority;
     private Deadline deadline;
     private DateAdded dateAdded;
     private DateCompleted dateCompleted;
@@ -50,7 +51,8 @@ public class TaskBuilder {
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
-        priority = new Priority(DEFAULT_PRIORITY);
+        updatedPriority = new Priority(DEFAULT_PRIORITY);
+        basePriority = new Priority(DEFAULT_PRIORITY);
         deadline = new Deadline(DEFAULT_DEADLINE);
         dateAdded = new DateAdded(DEFAULT_DATEADDED);
         dateCompleted = new DateCompleted(DEFAULT_DATECOMPLETED);
@@ -67,7 +69,8 @@ public class TaskBuilder {
      */
     public TaskBuilder(Task taskToCopy) {
         name = taskToCopy.getName();
-        priority = taskToCopy.getPriority();
+        updatedPriority = taskToCopy.getUpdatedPriority();
+        basePriority = taskToCopy.getBasePriority();
         deadline = taskToCopy.getDeadline();
         dateAdded = taskToCopy.getDateAdded();
         dateCompleted = taskToCopy.getDateCompleted();
@@ -120,13 +123,19 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets the {@code Priority} of the {@c
-     * ode Task} that we are building.
+     * Sets the {@code Priority} of the {@code Task} that we are building.
      */
-    public TaskBuilder withPriority(String priority) {
-        this.priority = new Priority(priority);
+    public TaskBuilder withPriority(String updatedPriority) {
+        this.updatedPriority = new Priority(updatedPriority);
         return this;
+    }
 
+    /**
+     * Sets the base {@code Priority} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withbasePriority(String basePriority) {
+        this.basePriority = new Priority(basePriority);
+        return this;
     }
 
     /**
@@ -165,7 +174,7 @@ public class TaskBuilder {
      * Returns a task
      */
     public Task build() {
-        return new Task(name, priority, deadline, dateAdded, dateCompleted,
+        return new Task(name, updatedPriority, basePriority, deadline, dateAdded, dateCompleted,
                 description, status, tags, subtasks, user, recurrence);
     }
 

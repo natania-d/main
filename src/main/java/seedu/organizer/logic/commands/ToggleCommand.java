@@ -80,7 +80,8 @@ public class ToggleCommand extends UndoableCommand {
         assert taskToEdit != null;
 
         Name updatedName = taskToEdit.getName();
-        Priority updatedPriority = taskToEdit.getPriority();
+        Priority updatedPriority = taskToEdit.getUpdatedPriority();
+        Priority basePriority = taskToEdit.getBasePriority();
         Deadline updatedDeadline = taskToEdit.getDeadline();
         DateAdded oldDateAdded = taskToEdit.getDateAdded();
         DateCompleted updatedDateCompleted = taskToEdit.getDateCompleted().toggle();
@@ -90,7 +91,7 @@ public class ToggleCommand extends UndoableCommand {
         Status updatedStatus = taskToEdit.getStatus().getInverse();
         Recurrence updatedRecurrence = taskToEdit.getRecurrence();
 
-        return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded,
+        return new Task(updatedName, updatedPriority, basePriority, updatedDeadline, oldDateAdded,
                 updatedDateCompleted, updatedDescription, updatedStatus,
                 updatedTags, updatedSubtasks, getCurrentlyLoggedInUser(), updatedRecurrence);
     }

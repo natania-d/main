@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.organizer.commons.exceptions.DuplicateDataException;
 import seedu.organizer.commons.util.CollectionUtil;
+import seedu.organizer.model.task.Status;
 
 /**
  * A list of subtasks that enforces no nulls and uniqueness between its elements.
@@ -126,6 +127,16 @@ public class UniqueSubtaskList implements Iterable<Subtask> {
     public static class DuplicateSubtaskException extends DuplicateDataException {
         protected DuplicateSubtaskException() {
             super("Operation would result in duplicate subtasks");
+        }
+    }
+
+    //@@author natania
+    /**
+     * Makes the {@code Status} of all the subtasks in list not done.
+     */
+    public void makeAllSubtasksUndone(List<Subtask> subtasks) {
+        for (Subtask subtask : subtasks) {
+            Status updatedStatus = subtask.getStatus().makeNotDone();
         }
     }
 

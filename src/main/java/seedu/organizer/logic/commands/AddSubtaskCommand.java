@@ -91,7 +91,8 @@ public class AddSubtaskCommand extends UndoableCommand {
         assert taskToEdit != null;
 
         Name updatedName = taskToEdit.getName();
-        Priority updatedPriority = taskToEdit.getPriority();
+        Priority updatedPriority = taskToEdit.getUpdatedPriority();
+        Priority basePriority = taskToEdit.getBasePriority();
         Deadline updatedDeadline = taskToEdit.getDeadline();
         DateAdded oldDateAdded = taskToEdit.getDateAdded();
         DateCompleted oldDateCompleted = taskToEdit.getDateCompleted();
@@ -103,7 +104,7 @@ public class AddSubtaskCommand extends UndoableCommand {
 
         updatedSubtasks.add(toAdd);
 
-        return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded, oldDateCompleted,
+        return new Task(updatedName, updatedPriority, basePriority, updatedDeadline, oldDateAdded, oldDateCompleted,
                 updatedDescription, updatedStatus, updatedTags, updatedSubtasks.toList(), getCurrentlyLoggedInUser(),
                 updatedRecurrence);
     }

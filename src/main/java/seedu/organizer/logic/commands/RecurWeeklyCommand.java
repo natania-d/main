@@ -67,6 +67,7 @@ public class RecurWeeklyCommand extends UndoableCommand {
         try {
             recurredTask = createRecurredTask(taskToRecur);
             model.updateTask(taskToRecur, recurredTask);
+            model.recurTask(recurredTask, this.times);
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
@@ -96,7 +97,8 @@ public class RecurWeeklyCommand extends UndoableCommand {
         assert taskToRecur != null;
 
         Name updatedName = taskToRecur.getName();
-        Priority updatedPriority = taskToRecur.getPriority();
+        Priority updatedPriority = taskToRecur.getUpdatedPriority();
+        Priority basePriority = taskToRecur.getBasePriority();
         Deadline updatedDeadline = taskToRecur.getDeadline();
         DateAdded oldDateAdded = taskToRecur.getDateAdded();
         DateCompleted oldDateCompleted = taskToRecur.getDateCompleted();
@@ -107,7 +109,7 @@ public class RecurWeeklyCommand extends UndoableCommand {
         Recurrence updatedRecurrence = new Recurrence(taskToRecur.getRecurrence().getIsRecurring(),
                 taskToRecur.hashCode(), true);
 
-        return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded, oldDateCompleted,
+        return new Task(updatedName, updatedPriority, basePriority, updatedDeadline, oldDateAdded, oldDateCompleted,
                 updatedDescription, updatedStatus, updatedTags, updatedSubtasks, getCurrentlyLoggedInUser(),
                 updatedRecurrence);
     }

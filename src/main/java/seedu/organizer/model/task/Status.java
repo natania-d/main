@@ -25,6 +25,8 @@ public class Status {
         return new Status(!this.value);
     }
 
+    public Status makeNotDone() { return new Status(false); }
+
     @Override
     public String toString() {
         if (this.value) {

@@ -26,7 +26,7 @@ public class XmlAdaptedTaskTest {
     private static final String INVALID_DEADLINE = "2018/09/09";
     private static final String INVALID_TAG = "#friend";
     private static final String VALID_NAME = SPRINGCLEAN.getName().toString();
-    private static final String VALID_PRIORITY = SPRINGCLEAN.getPriority().toString();
+    private static final String VALID_PRIORITY = SPRINGCLEAN.getUpdatedPriority().toString();
     private static final String VALID_DEADLINE = SPRINGCLEAN.getDeadline().toString();
     private static final String VALID_DATEADDED = SPRINGCLEAN.getDateAdded().toString();
     private static final String VALID_DATECOMPLETED = SPRINGCLEAN.getDateCompleted().toString();

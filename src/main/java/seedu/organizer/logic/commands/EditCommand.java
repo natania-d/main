@@ -107,7 +107,7 @@ public class EditCommand extends UndoableCommand {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
-        Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
+        Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getUpdatedPriority());
         Deadline updatedDeadline = editTaskDescriptor.getDeadline().orElse(taskToEdit.getDeadline());
         DateAdded oldDateAdded = taskToEdit.getDateAdded();
         DateCompleted oldDateCompleted = taskToEdit.getDateCompleted();
@@ -117,7 +117,7 @@ public class EditCommand extends UndoableCommand {
         List<Subtask> updatedSubtasks = editTaskDescriptor.getSubtasks().orElse(taskToEdit.getSubtasks());
         Recurrence updatedRecurrence = taskToEdit.getRecurrence();
 
-        return new Task(updatedName, updatedPriority, updatedDeadline, oldDateAdded,
+        return new Task(updatedName, updatedPriority, updatedPriority, updatedDeadline, oldDateAdded,
                 oldDateCompleted, updatedDescription, updatedstatus,
                 updatedTags, updatedSubtasks, getCurrentlyLoggedInUser(), updatedRecurrence);
     }

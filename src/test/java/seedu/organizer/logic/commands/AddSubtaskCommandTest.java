@@ -167,7 +167,8 @@ public class AddSubtaskCommandTest {
         subtasks.add(subtask);
         return new Task(
                 task.getName(),
-                task.getPriority(),
+                task.getUpdatedPriority(),
+                task.getBasePriority(),
                 task.getDeadline(),
                 task.getDateAdded(),
                 task.getDateCompleted(),

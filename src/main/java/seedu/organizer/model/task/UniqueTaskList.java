@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.organizer.commons.util.CollectionUtil;
+import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 import seedu.organizer.model.task.exceptions.DuplicateTaskException;
 import seedu.organizer.model.task.exceptions.TaskNotFoundException;
 import seedu.organizer.model.task.predicates.TaskByUserPredicate;
@@ -171,7 +172,7 @@ public class UniqueTaskList implements Iterable<Task> {
         LocalDate currentDate = LocalDate.now();
         LocalDate dateAdded = task.getDateAdded().date;
         LocalDate deadline = task.getDeadline().date;
-        Priority curPriority = task.getPriority();
+        Priority curPriority = task.getUpdatedPriority();
 
         int priorityDifferenceFromMax = Integer.parseInt(Priority.HIGHEST_SETTABLE_PRIORITY_LEVEL)
                                         - Integer.parseInt(curPriority.value);
@@ -181,20 +182,20 @@ public class UniqueTaskList implements Iterable<Task> {
                                                             deadline.atStartOfDay()).toDays();
 
         if (dateAdded.isEqual(LocalDate.now()) && dayDifferenceCurrentToDeadline >= 0) {
-            newTask = new Task(task.getName(), task.getPriority(), task.getDeadline(), task.getDateAdded(),
-                    task.getDateCompleted(), task.getDescription(), task.getStatus(), task.getTags(),
-                    task.getSubtasks(), task.getUser(), task.getRecurrence());
+            newTask = new Task(task.getName(), task.getUpdatedPriority(), task.getBasePriority(), task.getDeadline(),
+                    task.getDateAdded(), task.getDateCompleted(), task.getDescription(), task.getStatus(),
+                    task.getTags(), task.getSubtasks(), task.getUser(), task.getRecurrence());
         } else if (currentDate.isBefore(deadline)) {
             newPriority = calculateNewPriority(curPriority,
                     priorityDifferenceFromMax, dayDifferenceCurrentToDeadline, dayDifferenceAddedToDeadline);
-            newTask = new Task(task.getName(), newPriority, task.getDeadline(), task.getDateAdded(),
-                    task.getDateCompleted(), task.getDescription(), task.getStatus(), task.getTags(),
-                    task.getSubtasks(), task.getUser(), task.getRecurrence());
+            newTask = new Task(task.getName(), newPriority, task.getBasePriority(), task.getDeadline(),
+                    task.getDateAdded(), task.getDateCompleted(), task.getDescription(), task.getStatus(),
+                    task.getTags(), task.getSubtasks(), task.getUser(), task.getRecurrence());
         } else {
             newPriority = new Priority(Priority.HIGHEST_SETTABLE_PRIORITY_LEVEL);
-            newTask = new Task(task.getName(), newPriority, task.getDeadline(), task.getDateAdded(),
-                    task.getDateCompleted(), task.getDescription(), task.getStatus(), task.getTags(),
-                    task.getSubtasks(), task.getUser(), task.getRecurrence());
+            newTask = new Task(task.getName(), newPriority, task.getBasePriority(), task.getDeadline(),
+                    task.getDateAdded(), task.getDateCompleted(), task.getDescription(), task.getStatus(),
+                    task.getTags(), task.getSubtasks(), task.getUser(), task.getRecurrence());
         }
 
         requireNonNull(newTask);
@@ -217,4 +218,24 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     //@@author
+
+    //@author natania
+    /**
+     * Adds recurred versions of a task to the list.
+     *
+     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     */
+    public void addRecurringTask(Task task, LocalDate newDeadline)
+            throws DuplicateTaskException, TaskAlreadyRecurredException {
+        requireNonNull(task);
+        Task recurredTask = new Task (task.getName(), task.getBasePriority(), task.getBasePriority(),
+                new Deadline(newDeadline), new DateAdded(), new DateCompleted(false), task.getDescription(),
+                new Status(false), task.getTags(), task.getSubtasks(), task.getUser(), task.getRecurrence());
+        if (contains(task)) {
+            throw new DuplicateTaskException();
+        }
+        task = updatePriority(task);
+        internalList.add(task);
+        sortTasks();
+    }
 }
