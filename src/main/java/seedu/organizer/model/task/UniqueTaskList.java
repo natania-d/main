@@ -5,14 +5,20 @@ import static seedu.organizer.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.organizer.commons.util.CollectionUtil;
+import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
+import seedu.organizer.model.subtask.Subtask;
+import seedu.organizer.model.subtask.UniqueSubtaskList;
+import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.exceptions.DuplicateTaskException;
 import seedu.organizer.model.task.exceptions.TaskNotFoundException;
 import seedu.organizer.model.task.predicates.TaskByUserPredicate;
@@ -227,17 +233,49 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void addRecurringTask(Task task, LocalDate newDeadline)
-            throws DuplicateTaskException, TaskAlreadyRecurredException {
+    public void addRecurringTask(Task task, LocalDate newDeadline) throws DuplicateTaskException {
         requireNonNull(task);
-        Task recurredTask = new Task (task.getName(), task.getBasePriority(), task.getBasePriority(),
-                new Deadline(newDeadline), new DateAdded(), new DateCompleted(false), task.getDescription(),
-                new Status(false), task.getTags(), task.getSubtasks(), task.getUser(), task.getRecurrence());
-        if (contains(task)) {
+        Task recurredTask = createRecurredTask(task,newDeadline);
+        if (contains(recurredTask)) {
             throw new DuplicateTaskException();
         }
-        task = updatePriority(task);
-        internalList.add(task);
+        internalList.add(recurredTask);
         sortTasks();
+    }
+
+    /**
+     * Makes the {@code Status} of all the subtasks of {@code Task} not done.
+     */
+    private static Task createRecurredTask(Task task, LocalDate newDeadline) {
+        assert task != null;
+
+        Name updatedName = task.getName();
+        Priority updatedPriority = task.getBasePriority();
+        Priority basePriority = task.getBasePriority();
+        Deadline updatedDeadline = new Deadline(newDeadline);
+        DateAdded oldDateAdded = new DateAdded();
+        DateCompleted updatedDateCompleted = new DateCompleted();
+        Description updatedDescription = task.getDescription();
+        Status updatedStatus = new Status(false);
+        Set<Tag> updatedTags = task.getTags();
+        List<Subtask> originalSubtasks = new ArrayList<>(task.getSubtasks());
+        User user = task.getUser();
+        Recurrence updatedRecurrence = task.getRecurrence();
+
+        for (int i = 0; i < originalSubtasks.size(); i++) {
+            Subtask originalSubtask = originalSubtasks.get(i);
+            if (originalSubtask.getStatus().value) {
+                Name subtaskName = originalSubtask.getName();
+                Status subtaskStatus = originalSubtask.getStatus().getInverse();
+                Subtask editedSubtask = new Subtask(subtaskName, subtaskStatus);
+                originalSubtasks.set(i, editedSubtask);
+            }
+        }
+
+        UniqueSubtaskList updatedSubtasks = new UniqueSubtaskList(originalSubtasks);
+
+        return new Task(updatedName, updatedPriority, basePriority, updatedDeadline, oldDateAdded,
+                updatedDateCompleted, updatedDescription, updatedStatus, updatedTags, updatedSubtasks.toList(),
+                user, updatedRecurrence);
     }
 }

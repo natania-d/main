@@ -300,7 +300,7 @@ public class Organizer implements ReadOnlyOrganizer {
      *
      * @throws DuplicateTaskException if an equivalent task already exists.
      */
-    public void recurTask(Task task, int times) throws DuplicateTaskException, TaskAlreadyRecurredException {
+    public void recurTask(Task task, int times) throws DuplicateTaskException {
         LocalDate oldDeadline = task.getDeadline().date;
         for (int i = 1; i <= times; i++) {
             LocalDate newDeadline = oldDeadline.plusWeeks(i);

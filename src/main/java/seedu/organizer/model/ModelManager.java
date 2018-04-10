@@ -156,8 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void recurTask(Task task, int times)
-            throws DuplicateTaskException, TaskAlreadyRecurredException {
+    public synchronized void recurTask(Task task, int times) throws DuplicateTaskException {
         organizer.recurTask(task, times);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateOrganizerChanged();
