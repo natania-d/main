@@ -1,4 +1,3 @@
-
 = PrioriTask - User Guide
 :linkcss:
 :icons: font
