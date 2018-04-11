@@ -232,7 +232,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void addRecurringTask(Task task, LocalDate newDeadline) throws DuplicateTaskException {
+    public void addRecurringTask(Task task, String newDeadline) throws DuplicateTaskException {
         requireNonNull(task);
         Task recurredTask = createRecurredTask(task, newDeadline);
         if (contains(recurredTask)) {
@@ -245,7 +245,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Makes the {@code Status} of all the subtasks of {@code Task} not done.
      */
-    private static Task createRecurredTask(Task task, LocalDate newDeadline) {
+    private static Task createRecurredTask(Task task, String newDeadline) {
         assert task != null;
 
         Name updatedName = task.getName();

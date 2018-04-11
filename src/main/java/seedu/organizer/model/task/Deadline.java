@@ -43,15 +43,6 @@ public class Deadline {
     }
 
     /**
-     * Constructs an {@code Deadline}.
-     *
-     * @param deadline
-     */
-    public Deadline(LocalDate deadline) {
-        this.date = deadline;
-    }
-
-    /**
      * Returns true if a given string is a valid task deadline.
      */
     public static boolean isValidDeadline(String test) {

@@ -303,7 +303,7 @@ public class Organizer implements ReadOnlyOrganizer {
         LocalDate oldDeadline = task.getDeadline().date;
         for (int i = 1; i <= times; i++) {
             LocalDate newDeadline = oldDeadline.plusWeeks(i);
-            tasks.addRecurringTask(task, newDeadline);
+            tasks.addRecurringTask(task, newDeadline.toString());
         }
     }
     //@@author
