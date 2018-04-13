@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.organizer.model.recurrence.exceptions.TaskNotRecurringException;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.tag.UniqueTagList;
 import seedu.organizer.model.task.Task;
@@ -200,17 +201,6 @@ public class Organizer implements ReadOnlyOrganizer {
     }
 
     /**
-     * Removes all {@code Tag}s that are not used by any {@code Task} in this {@code Organizer}.
-     */
-    private void removeUnusedTags() {
-        Set<Tag> tagsInTasks = tasks.asObservableList().stream()
-                .map(Task::getTags)
-                .flatMap(Set::stream)
-                .collect(Collectors.toSet());
-        tags.setTags(tagsInTasks);
-    }
-
-    /**
      * Updates the master tag list to include tags in {@code task} that are not in the list.
      *
      * @return a copy of this {@code task} such that every tag in this task points to a Tag object in the master
@@ -253,7 +243,18 @@ public class Organizer implements ReadOnlyOrganizer {
         tags.add(t);
     }
 
-    //@@author natania
+    //@@author natania-reused
+    /**
+     * Removes all {@code Tag}s that are not used by any {@code Task} in this {@code Organizer}.
+     */
+    private void removeUnusedTags() {
+        Set<Tag> tagsInTasks = tasks.asObservableList().stream()
+                .map(Task::getTags)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
+        tags.setTags(tagsInTasks);
+    }
+
     /**
      * Removes {@code tag} from {@code task} in this {@code Organizer}.
      * @throws TaskNotFoundException if the {@code task} is not in this {@code Organizer}.
@@ -291,11 +292,12 @@ public class Organizer implements ReadOnlyOrganizer {
         }
     }
 
+    //@@author natania
     /**
-     * Recurs a task weekly in the organizer for the given number of times.
-     * Recurs by adding new tasks with the same parameters as the task to be recurred,
+     * Recurs a task weekly in the organizer for the given number of times, which is done
+     * by adding new tasks with the same parameters as the task to be recurred,
      * except for deadline, which is changed to be on the same day as the task to be recurred,
-     * but on later weeks.
+     * but on later weeks, and priority, which is set to the base priority.
      *
      * @throws DuplicateTaskException if an equivalent task already exists.
      */
@@ -304,6 +306,25 @@ public class Organizer implements ReadOnlyOrganizer {
         for (int i = 1; i <= times; i++) {
             LocalDate newDeadline = oldDeadline.plusWeeks(i);
             tasks.addRecurringTask(task, newDeadline.toString());
+        }
+    }
+
+    /**
+     * Removes {@code key} and its recurred versions from this {@code Organizer}.
+     *
+     * @throws TaskNotFoundException if the {@code key} is not in this {@code Organizer}.
+     * @throws TaskNotRecurringException if the {@code key} is not recurring.
+     */
+    public void removeRecurredTasks(Task key) throws TaskNotFoundException, TaskNotRecurringException {
+        if (!key.getRecurrence().getIsRecurring()) {
+            throw new TaskNotRecurringException();
+        } else {
+            int recurrenceGroup = key.getRecurrence().getRecurrenceGroup();
+            for (Task task : tasks) {
+                if (task.getRecurrence().getRecurrenceGroup() == recurrenceGroup) {
+                    removeTask(task);
+                }
+            }
         }
     }
     //@@author
