@@ -81,7 +81,8 @@ public interface Model {
 
     //@@author natania
     /** Recurs the given task for the given number of times */
-    void recurTask(Task task, int times) throws DuplicateTaskException, TaskAlreadyRecurredException, TaskNotFoundException;
+    void recurTask(Task task, int times)
+            throws DuplicateTaskException, TaskAlreadyRecurredException, TaskNotFoundException;
 
     /** Deletes the given task and all its recurred versions. */
     void deleteRecurredTasks(Task target) throws DuplicateTaskException, TaskNotRecurringException;

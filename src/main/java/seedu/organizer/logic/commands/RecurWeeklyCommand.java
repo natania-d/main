@@ -3,25 +3,13 @@ package seedu.organizer.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TIMES;
 import static seedu.organizer.model.Model.PREDICATE_SHOW_ALL_TASKS;
-import static seedu.organizer.model.ModelManager.getCurrentlyLoggedInUser;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.organizer.commons.core.Messages;
 import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.exceptions.CommandException;
-import seedu.organizer.model.recurrence.Recurrence;
 import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
-import seedu.organizer.model.subtask.Subtask;
-import seedu.organizer.model.tag.Tag;
-import seedu.organizer.model.task.DateAdded;
-import seedu.organizer.model.task.DateCompleted;
-import seedu.organizer.model.task.Deadline;
-import seedu.organizer.model.task.Description;
-import seedu.organizer.model.task.Name;
-import seedu.organizer.model.task.Priority;
-import seedu.organizer.model.task.Status;
 import seedu.organizer.model.task.Task;
 import seedu.organizer.model.task.exceptions.DuplicateTaskException;
 import seedu.organizer.model.task.exceptions.TaskNotFoundException;
