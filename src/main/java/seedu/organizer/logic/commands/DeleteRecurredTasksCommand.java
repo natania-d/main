@@ -10,6 +10,7 @@ import seedu.organizer.commons.core.index.Index;
 import seedu.organizer.logic.commands.exceptions.CommandException;
 import seedu.organizer.model.recurrence.exceptions.TaskNotRecurringException;
 import seedu.organizer.model.task.Task;
+import seedu.organizer.model.task.exceptions.DuplicateTaskException;
 import seedu.organizer.model.task.exceptions.TaskNotFoundException;
 
 //@@author natania
@@ -45,8 +46,8 @@ public class DeleteRecurredTasksCommand extends UndoableCommand {
         requireNonNull(taskToDelete);
         try {
             model.deleteRecurredTasks(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
-            throw new AssertionError("The target task cannot be missing");
+        } catch (DuplicateTaskException pnfe) {
+            throw new AssertionError("The target task cannot be a duplicate");
         } catch (TaskNotRecurringException tnre) {
             throw new CommandException(MESSAGE_NOT_RECURRED_TASK);
         }

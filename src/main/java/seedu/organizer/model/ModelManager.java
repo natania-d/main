@@ -164,7 +164,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteRecurredTasks(Task target) throws TaskNotFoundException, TaskNotRecurringException {
+    public synchronized void deleteRecurredTasks(Task target) throws DuplicateTaskException, TaskNotRecurringException {
         organizer.removeRecurredTasks(target);
         indicateOrganizerChanged();
     }

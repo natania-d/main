@@ -84,5 +84,5 @@ public interface Model {
     void recurTask(Task task, int times) throws DuplicateTaskException;
 
     /** Deletes the given task and all its recurred versions. */
-    void deleteRecurredTasks(Task target) throws TaskNotFoundException, TaskNotRecurringException;
+    void deleteRecurredTasks(Task target) throws DuplicateTaskException, TaskNotRecurringException;
 }
