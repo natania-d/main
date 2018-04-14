@@ -49,7 +49,6 @@ public class RecurWeeklyCommand extends UndoableCommand {
     private final int times;
 
     private Task taskToRecur;
-    private Task recurredTask;
 
     /**
      * @param index of the task in the filtered task list to edit
@@ -65,9 +64,7 @@ public class RecurWeeklyCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
-            recurredTask = createRecurredTask(taskToRecur);
-            model.updateTask(taskToRecur, recurredTask);
-            model.recurTask(recurredTask, this.times);
+            model.recurTask(taskToRecur, this.times);
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
@@ -76,7 +73,7 @@ public class RecurWeeklyCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_RECURRED_TASK);
         }
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, recurredTask));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToRecur));
     }
 
     @Override
@@ -88,30 +85,6 @@ public class RecurWeeklyCommand extends UndoableCommand {
         }
 
         taskToRecur = lastShownList.get(index.getZeroBased());
-    }
-
-    /**
-     * Creates and returns a {@code Task} with the details of {@code taskToRecur}
-     */
-    private static Task createRecurredTask(Task taskToRecur) throws TaskAlreadyRecurredException {
-        assert taskToRecur != null;
-
-        Name updatedName = taskToRecur.getName();
-        Priority updatedPriority = taskToRecur.getUpdatedPriority();
-        Priority basePriority = taskToRecur.getBasePriority();
-        Deadline updatedDeadline = taskToRecur.getDeadline();
-        DateAdded oldDateAdded = taskToRecur.getDateAdded();
-        DateCompleted oldDateCompleted = taskToRecur.getDateCompleted();
-        Description updatedDescription = taskToRecur.getDescription();
-        Set<Tag> updatedTags = taskToRecur.getTags();
-        List<Subtask> updatedSubtasks = taskToRecur.getSubtasks();
-        Status updatedStatus = taskToRecur.getStatus();
-        Recurrence updatedRecurrence = new Recurrence(taskToRecur.getRecurrence().getIsRecurring(),
-                taskToRecur.hashCode(), true);
-
-        return new Task(updatedName, updatedPriority, basePriority, updatedDeadline, oldDateAdded, oldDateCompleted,
-                updatedDescription, updatedStatus, updatedTags, updatedSubtasks, getCurrentlyLoggedInUser(),
-                updatedRecurrence);
     }
 
     @Override

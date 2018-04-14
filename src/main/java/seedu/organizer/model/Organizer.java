@@ -14,6 +14,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.organizer.model.recurrence.Recurrence;
+import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 import seedu.organizer.model.recurrence.exceptions.TaskNotRecurringException;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.tag.UniqueTagList;
@@ -303,12 +305,27 @@ public class Organizer implements ReadOnlyOrganizer {
      *
      * @throws DuplicateTaskException if an equivalent task already exists.
      */
-    public void recurTask(Task task, int times) throws DuplicateTaskException {
+    public void recurTask(Task taskToRecur, int times)
+            throws DuplicateTaskException, TaskAlreadyRecurredException, TaskNotFoundException {
+        Task task = createRecurredTask(taskToRecur);
+        updateTask(taskToRecur, task);
         LocalDate oldDeadline = task.getDeadline().date;
         for (int i = 1; i <= times; i++) {
             LocalDate newDeadline = oldDeadline.plusWeeks(i);
             tasks.addRecurringTask(task, newDeadline.toString());
         }
+    }
+
+    /**
+     * Creates and returns a {@code Task} with the details of {@code taskToRecur}
+     */
+    public Task createRecurredTask(Task task) throws TaskAlreadyRecurredException {
+        Recurrence updatedRecurrence = new Recurrence(task.getRecurrence().getIsRecurring(),
+                task.hashCode(), true);
+        return new Task(
+                task.getName(), task.getUpdatedPriority(), task.getBasePriority(), task.getDeadline(),
+                task.getDateAdded(), task.getDateCompleted(), task.getDescription(), task.getStatus(),
+                task.getTags(), task.getSubtasks(), task.getUser(), updatedRecurrence);
     }
 
     /**
