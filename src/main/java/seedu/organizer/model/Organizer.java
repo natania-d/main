@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.organizer.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -231,6 +232,7 @@ public class Organizer implements ReadOnlyOrganizer {
      */
     public boolean removeTask(Task key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
+            removeUnusedTags();
             return true;
         } else {
             throw new TaskNotFoundException();
@@ -312,19 +314,22 @@ public class Organizer implements ReadOnlyOrganizer {
     /**
      * Removes {@code key} and its recurred versions from this {@code Organizer}.
      *
-     * @throws TaskNotFoundException if the {@code key} is not in this {@code Organizer}.
+     * @throws DuplicateTaskException
      * @throws TaskNotRecurringException if the {@code key} is not recurring.
      */
-    public void removeRecurredTasks(Task key) throws TaskNotFoundException, TaskNotRecurringException {
+    public void removeRecurredTasks(Task key) throws DuplicateTaskException, TaskNotRecurringException {
         if (!key.getRecurrence().getIsRecurring()) {
             throw new TaskNotRecurringException();
         } else {
             int recurrenceGroup = key.getRecurrence().getRecurrenceGroup();
+            List<Task> newTaskList = new ArrayList<>();
             for (Task task : tasks) {
-                if (task.getRecurrence().getRecurrenceGroup() == recurrenceGroup) {
-                    removeTask(task);
+                if (task.getRecurrence().getRecurrenceGroup() != recurrenceGroup) {
+                    newTaskList.add(task);
                 }
             }
+            setTasks(newTaskList);
+            removeUnusedTags();
         }
     }
     //@@author
