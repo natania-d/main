@@ -625,7 +625,7 @@ Recurs the 1st task weekly for 3 times.
 // end::recurw[]
 
 // tag::deleter{}
-=== Deleting a task and all its recurred versions : `deleter` or `dr`
+=== Deleting a task and all its recurred versions : `deleter` or `dr` `[since v1.5]`
 
 Deletes the specified task and all its recurred versions from PrioriTask. +
 
@@ -653,13 +653,13 @@ Deletes the 1st task and all its recurred versions in the results of the `find` 
 // end::deleter[]
 
 // tag::remove[]
-=== Removing tags from all tasks : `remove` or `r`
+=== Removing tags from all tasks : `remove` or `r` `[since v1.5]`
 
 Removes specified tags from all tasks in PrioriTask. +
 
 [.format]
 ====
-[format-title]#Format:# `remove t/TAG1 [t/TAG2]`
+[format-title]#Format:# `remove t/TAG1 [t/TAG2]…​`
 ====
 
 * Removes TAG1 and TAG2 (if present) from all tasks.
@@ -1036,6 +1036,10 @@ e.g.[example-no-box]#`toggle 3`#
 * *Clear* : [format-no-box]#`clear`#
 * *Recur weekly* : [format-no-box]#`recurw INDEX x/TIMES`# +
 e.g.[example-no-box]#`recurw 2 x/2`#
+* *Delete task and its recurred versions* : [format-no-box]#`deleter INDEX`# +
+e.g. [example-no-box]#`deleter 3`#
+* *Remove tags* : [format-no-box]#`remove t/TAG1 [t/TAG2]…​`# +
+e.g. [example-no-box]#`remove t\friends t\homework`#
 
 // tag::subtaskFeatureSummary[]
 === Subtask management features
