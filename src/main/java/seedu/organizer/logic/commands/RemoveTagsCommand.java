@@ -2,6 +2,7 @@ package seedu.organizer.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.organizer.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class RemoveTagsCommand extends UndoableCommand {
         for (Tag tag : tagList) {
             model.deleteTag(tag);
         }
-
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         return new CommandResult(String.format(MESSAGE_REMOVE_TAG_SUCCESS, tagList));
     }
 
