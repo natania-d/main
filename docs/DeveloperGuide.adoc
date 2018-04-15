@@ -876,7 +876,7 @@ is `O(n)`.
 
 Recurring Tasks feature allows users to recur tasks weekly using the `RecurWeeklyCommand`. It also allows users to delete a task and all its recurred versions using the `DeleteRecurredTasksCommand`.
 
-==== Current implementation
+==== Current Implementation
 
 The recurring task feature is implemented through a `Recurrence` component, which is a parameter for `Task`.
 

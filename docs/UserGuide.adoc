@@ -19,11 +19,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W13-B4/main
 
-By: `CS2103JAN2018-W13-B4`      Since: `March 2018`      Licence: `MIT`
+By: `CS2103JAN2018-W13-B4`      Since: `April 2018`      Licence: `MIT`
 
 == Introduction
 
-PrioriTask is a desktop task management application. It is not just any task management application, but a combination of the to-do list, calendar and reminder features, with an added bonus of automatic updating and sorting of your tasks based on priority levels. It helps you keep track of your tasks, while providing you with at-a-glance views of upcoming tasks by day, week or month. PrioriTask is optimized for those who prefer to interact with an application by typing commands instead of clicking on buttons.
+PrioriTask is a desktop task management application. It is not just any task management application, but a combination of the to-do list, calendar and reminder features, with an added bonus of automatic updating and sorting of your tasks based on priority levels. It helps you keep track of your tasks, while providing you with at-a-glance views of upcoming tasks by day, week or month. PrioriTask is optimized for those who prefer to interact with an application by typing commands instead of clicking using a cursor.
 
 This guide will show you how to get started using PrioriTask, and will introduce you to the different features PrioriTask has.
 
@@ -761,7 +761,7 @@ Changes the first subtask of the first task name to `Do some research`.
 Change the fourth subtask of the second task in the result of `find cleaning` command name to `Run for 7.87 Km`.
 ====
 
-=== Mark subtask as complete: `toggle-subtask` or `ts` `[since v1.3]`
+=== Marking subtask as complete: `toggle-subtask` or `ts` `[since v1.3]`
 
 Toggle the status of the subtask identified by the index number used in the last subtask listing
 between `Completed` and `Not Completed`. +
@@ -787,7 +787,7 @@ Toggles the first subtask of the first task in PrioriTask.
 Toggles the fourth subtask of the second task in th result of `find homework` command.
 ====
 
-=== Reorder subtask `[coming in v2.0]`
+=== Reordering subtask `[coming in v2.0]`
 
 _Reorder subtasks using a given condition_
 // end::subtaskFeature[]
@@ -810,7 +810,7 @@ In future releases, the calendar will support,
 * Displaying of only the completed or uncompleted tasks on the calendar, regardless of the last task listing `[coming in v2.0]`.
 * Viewing of the calendar by days, weeks and years `[coming in v2.0]`.
 
-=== Go to current month: `cmonth` or `cm` `[since v1.4]`
+=== Going to current month: `cmonth` or `cm` `[since v1.4]`
 
 Change the view of the calendar to that of the current month. +
 
@@ -829,7 +829,7 @@ Views `December 2018` +
 Goes to `April 2018`
 ====
 
-=== Go to previous month: `pmonth` or `pm` `[since v1.4]`
+=== Going to previous month: `pmonth` or `pm` `[since v1.4]`
 
 Chang the view of the calendar to that of the previous month. +
 
@@ -847,7 +847,7 @@ Chang the view of the calendar to that of the previous month. +
 Goes to `February 2018`
 ====
 
-=== Go to next month: `nmonth` or `nm` `[since v1.4]`
+=== Going to next month: `nmonth` or `nm` `[since v1.4]`
 
 Chang the view of the calendar to that of the next month. +
 
