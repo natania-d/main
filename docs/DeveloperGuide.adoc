@@ -1378,7 +1378,15 @@ If the window size is smaller than the default height and width, the window size
 
 === Task Management
 
-. Natania add your recurring task testing here
+. Recurring a task weekly
+.. Prerequisites: Application is logged in, and at least a task is added that has not been recurred yet.
+.. Test case: recurw 1 x/2 +
+Expected: Task recurred successfully. A success message will be shown in the results display box. 2 tasks will have been added to the task list panel and the calendar.
+
+. Deleting a task and its recurred versions
+.. Prerequisites: Application is logged in, and at least a task is added that has been recurred.
+.. Test case: deleter 1 +
+Expected: Task and its recurred versions deleted successfully. A success message will be shown in the results display box. The task and its recurred versions will not be shown in the task list panel or the calendar.
 
 . Adding a subtask
 .. Prerequisites: Application is logged in, and at least a task is added with no subtask.
