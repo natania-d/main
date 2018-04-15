@@ -1,13 +1,5 @@
 package seedu.organizer.logic.parser;
 
-import seedu.organizer.logic.commands.RemoveTagsCommand;
-import seedu.organizer.model.tag.Tag;
-
-import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import static seedu.organizer.logic.commands.CommandTestUtil.TAG_DESC_FRIENDS;
 import static seedu.organizer.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.organizer.logic.commands.CommandTestUtil.VALID_TAG_FRIENDS;
@@ -15,6 +7,14 @@ import static seedu.organizer.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.organizer.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.organizer.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.organizer.logic.commands.RemoveTagsCommand;
+import seedu.organizer.model.tag.Tag;
 
 //@@author natania
 public class RemoveTagsCommandParserTest {

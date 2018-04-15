@@ -1,5 +1,21 @@
 package seedu.organizer.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.organizer.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.organizer.logic.commands.CommandTestUtil.prepareRedoCommand;
+import static seedu.organizer.logic.commands.CommandTestUtil.prepareUndoCommand;
+import static seedu.organizer.logic.commands.CommandTestUtil.showTaskAtIndex;
+import static seedu.organizer.testutil.TypicalIndexes.INDEX_FIRST_TASK;
+import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
+import static seedu.organizer.testutil.TypicalTasks.getTypicalOrganizer;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.collections.ObservableList;
 import seedu.organizer.logic.CommandHistory;
 import seedu.organizer.logic.UndoRedoStack;
@@ -11,22 +27,6 @@ import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.user.exceptions.CurrentlyLoggedInException;
 import seedu.organizer.model.user.exceptions.UserNotFoundException;
 import seedu.organizer.model.user.exceptions.UserPasswordWrongException;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.organizer.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.organizer.logic.commands.CommandTestUtil.prepareRedoCommand;
-import static seedu.organizer.logic.commands.CommandTestUtil.prepareUndoCommand;
-import static seedu.organizer.logic.commands.CommandTestUtil.showTaskAtIndex;
-import static seedu.organizer.testutil.TypicalIndexes.INDEX_FIRST_TASK;
-import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
-import static seedu.organizer.testutil.TypicalTasks.getTypicalOrganizer;
 
 //@@author natania
 /**
