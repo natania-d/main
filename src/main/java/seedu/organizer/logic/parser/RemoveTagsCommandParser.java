@@ -1,14 +1,15 @@
 package seedu.organizer.logic.parser;
 
+import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Set;
+
 import seedu.organizer.commons.exceptions.IllegalValueException;
 import seedu.organizer.logic.commands.RemoveTagsCommand;
 import seedu.organizer.logic.parser.exceptions.ParseException;
 import seedu.organizer.model.tag.Tag;
 
-import java.util.Set;
-
-import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TAG;
-
+//@@author natania
 /**
  * Parses input arguments and creates a new RemoveTagsCommand object
  */

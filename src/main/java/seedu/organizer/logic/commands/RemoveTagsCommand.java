@@ -1,17 +1,17 @@
 package seedu.organizer.logic.commands;
 
-import seedu.organizer.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
+import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TAG;
+import seedu.organizer.model.tag.Tag;
 
 //@@author natania
 /**
  * Removes a specified tag from all tasks in the organizer.
  */
-public class RemoveTagsCommand extends UndoableCommand{
+public class RemoveTagsCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "remove";
     public static final String COMMAND_ALIAS = "r";
 
