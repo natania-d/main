@@ -8,10 +8,10 @@ import static seedu.organizer.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.organizer.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.organizer.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import org.junit.Test;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.junit.Test;
 
 import seedu.organizer.logic.commands.RemoveTagsCommand;
 import seedu.organizer.model.tag.Tag;
@@ -45,6 +45,6 @@ public class RemoveTagsCommandParserTest {
         tagList.add(new Tag(VALID_TAG_FRIENDS));
         tagList.add(new Tag(VALID_TAG_HUSBAND));
         RemoveTagsCommand expectedCommand = new RemoveTagsCommand(tagList);
-        assertParseSuccess(parser,TAG_DESC_FRIENDS + TAG_DESC_HUSBAND, expectedCommand);
+        assertParseSuccess(parser, TAG_DESC_FRIENDS + TAG_DESC_HUSBAND, expectedCommand);
     }
 }

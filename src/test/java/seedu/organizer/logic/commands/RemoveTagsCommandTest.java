@@ -10,11 +10,11 @@ import static seedu.organizer.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.organizer.testutil.TypicalTasks.ADMIN_USER;
 import static seedu.organizer.testutil.TypicalTasks.getTypicalOrganizer;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import javafx.collections.ObservableList;
 import seedu.organizer.logic.CommandHistory;
