@@ -331,7 +331,6 @@ _This section explains what a *Task* is, and the commands to manage them._
 ** Tag labels are coloured. However, please note:
 *** Two different tags may have labels of the same colour.
 *** After closing and re-opening the application, the same tag label may have a different colour.
-
 ====
 
 === Adding a task: `add` or `a`
@@ -414,6 +413,8 @@ Different commands for listing different tasks. +
 
 ==== Listing all tasks : `list` or `l`
 
+List all tasks in PrioriTask.
+
 [.format]
 ====
 [format-title]#Format:# `list`
@@ -421,12 +422,16 @@ Different commands for listing different tasks. +
 
 ==== Listing all uncompleted tasks : `uncompleted` or `uncom` `[since v1.5]`
 
+List all uncompleted tasks in PrioriTask.
+
 [.format]
 ====
 [format-title]#Format:# `uncompleted`
 ====
 
 ==== Listing all completed tasks : `completed` or `com` `[since v1.5]`
+
+List all completed tasks in PrioriTask.
 
 [.format]
 ====
@@ -560,7 +565,7 @@ The calendar is updated with the new task listing reflected on the `Task List Pa
 
 ==== Locating tasks by tag `[coming in v2.0]`
 
-_Locate all tasks with a common tag_
+_Locate all tasks with a common tag._
 
 === Marking task as complete: `toggle` or `t` `[since v1.2]`
 
@@ -600,7 +605,7 @@ Clear all of your tasks from PrioriTask. +
 // tag::recurw[]
 === Recurring a task : `recurw` or `rw` `[since v1.5rc]`
 
-Recurs an existing task in PrioriTask.
+Recur an existing task in PrioriTask.
 
 [.format]
 ====
@@ -627,7 +632,7 @@ Recurs the 1st task weekly for 3 times.
 // tag::deleter[]
 === Deleting a task and all its recurred versions : `deleter` or `dr` `[since v1.5]`
 
-Deletes the specified task and all its recurred versions from PrioriTask. +
+Delete the specified task and all its recurred versions from PrioriTask. +
 
 [.format]
 ====
@@ -655,7 +660,7 @@ Deletes the 1st task and all its recurred versions in the results of the `find` 
 // tag::remove[]
 === Removing tags from all tasks : `remove` or `r` `[since v1.5]`
 
-Removes specified tags from all tasks in PrioriTask. +
+Remove specified tags from all tasks in PrioriTask. +
 
 [.format]
 ====
@@ -738,7 +743,7 @@ Deletes the fourth subtask of the second task in th result of `find cleaning` co
 
 === Editing a subtask: `edits` or `es` `[since v1.5]`
 
-Edit name of a subtask
+Edit name of a subtask.
 
 [.format]
 ====
@@ -789,7 +794,7 @@ Toggles the fourth subtask of the second task in th result of `find homework` co
 
 === Reordering subtask `[coming in v2.0]`
 
-_Reorder subtasks using a given condition_
+_Reorder subtasks using a given condition._
 // end::subtaskFeature[]
 
 // tag::calendar[]
@@ -831,7 +836,7 @@ Goes to `April 2018`
 
 === Going to previous month: `pmonth` or `pm` `[since v1.4]`
 
-Chang the view of the calendar to that of the previous month. +
+Change the view of the calendar to that of the previous month. +
 
 [.format]
 ====
@@ -849,7 +854,7 @@ Goes to `February 2018`
 
 === Going to next month: `nmonth` or `nm` `[since v1.4]`
 
-Chang the view of the calendar to that of the next month. +
+Change the view of the calendar to that of the next month. +
 
 [.format]
 ====
@@ -872,7 +877,7 @@ _This section explains the commands which access and manage PrioriTask data._
 
 === Viewing help : `help`
 
-Show all available commands in PrioriTask ..
+Show all available commands in PrioriTask .
 
 [.format]
 ====
