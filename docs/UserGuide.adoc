@@ -761,7 +761,7 @@ Changes the first subtask of the first task name to `Do some research`.
 Change the fourth subtask of the second task in the result of `find cleaning` command name to `Run for 7.87 Km`.
 ====
 
-=== Mark subtask as complete: `toggle-subtask` or `ts` `[since v1.3]`
+=== Marking subtask as complete: `toggle-subtask` or `ts` `[since v1.3]`
 
 Toggle the status of the subtask identified by the index number used in the last subtask listing
 between `Completed` and `Not Completed`. +
@@ -787,7 +787,7 @@ Toggles the first subtask of the first task in PrioriTask.
 Toggles the fourth subtask of the second task in th result of `find homework` command.
 ====
 
-=== Reorder subtask `[coming in v2.0]`
+=== Reordering subtask `[coming in v2.0]`
 
 _Reorder subtasks using a given condition_
 // end::subtaskFeature[]
