@@ -315,7 +315,7 @@ public class Organizer implements ReadOnlyOrganizer {
     /**
      * Adds versions of a {@code task} that are recurred weekly.
      */
-    public void addRecurringWeeklyTasks(Task task, int times) throws DuplicateTaskException{
+    public void addRecurringWeeklyTasks(Task task, int times) throws DuplicateTaskException {
         LocalDate oldDeadline = task.getDeadline().date;
         for (int i = 1; i <= times; i++) {
             LocalDate newDeadline = oldDeadline.plusWeeks(i);
