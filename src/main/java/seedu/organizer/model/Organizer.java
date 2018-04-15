@@ -14,6 +14,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.organizer.model.recurrence.Recurrence;
+import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 import seedu.organizer.model.recurrence.exceptions.TaskNotRecurringException;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.tag.UniqueTagList;
@@ -303,12 +305,34 @@ public class Organizer implements ReadOnlyOrganizer {
      *
      * @throws DuplicateTaskException if an equivalent task already exists.
      */
-    public void recurTask(Task task, int times) throws DuplicateTaskException {
+    public void recurWeeklyTask(Task taskToRecur, int times)
+            throws DuplicateTaskException, TaskAlreadyRecurredException, TaskNotFoundException {
+        Task task = createRecurredTask(taskToRecur);
+        updateTask(taskToRecur, task);
+        addRecurringWeeklyTasks(task, times);
+    }
+
+    /**
+     * Adds versions of a {@code task} that are recurred weekly.
+     */
+    public void addRecurringWeeklyTasks(Task task, int times) throws DuplicateTaskException {
         LocalDate oldDeadline = task.getDeadline().date;
         for (int i = 1; i <= times; i++) {
             LocalDate newDeadline = oldDeadline.plusWeeks(i);
             tasks.addRecurringTask(task, newDeadline.toString());
         }
+    }
+
+    /**
+     * Creates and returns a {@code Task} with the details of {@code taskToRecur}
+     */
+    public Task createRecurredTask(Task task) throws TaskAlreadyRecurredException {
+        Recurrence updatedRecurrence = new Recurrence(task.getRecurrence().getIsRecurring(),
+                task.hashCode(), true);
+        return new Task(
+                task.getName(), task.getUpdatedPriority(), task.getBasePriority(), task.getDeadline(),
+                task.getDateAdded(), task.getDateCompleted(), task.getDescription(), task.getStatus(),
+                task.getTags(), task.getSubtasks(), task.getUser(), updatedRecurrence);
     }
 
     /**
@@ -321,16 +345,24 @@ public class Organizer implements ReadOnlyOrganizer {
         if (!key.getRecurrence().getIsRecurring()) {
             throw new TaskNotRecurringException();
         } else {
-            int recurrenceGroup = key.getRecurrence().getRecurrenceGroup();
-            List<Task> newTaskList = new ArrayList<>();
-            for (Task task : tasks) {
-                if (task.getRecurrence().getRecurrenceGroup() != recurrenceGroup) {
-                    newTaskList.add(task);
-                }
-            }
+            List<Task> newTaskList = makeNewTaskListWithoutTags(key);
             setTasks(newTaskList);
             removeUnusedTags();
         }
+    }
+
+    /**
+     * Removes {@code tag} from all tasks in this {@code Organizer}.
+     */
+    public List<Task> makeNewTaskListWithoutTags(Task key) {
+        int recurrenceGroup = key.getRecurrence().getRecurrenceGroup();
+        List<Task> newTaskList = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getRecurrence().getRecurrenceGroup() != recurrenceGroup) {
+                newTaskList.add(task);
+            }
+        }
+        return newTaskList;
     }
     //@@author
 

@@ -9,6 +9,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :stylesheet: guides-style.css
@@ -19,7 +20,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W13-B4/main
 
-By: `CS2103JAN2018-W13-B4`      Since: `March 2018`      Licence: `MIT`
+By: `CS2103JAN2018-W13-B4`      Since: `April 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -103,7 +104,7 @@ image::DeveloperGettingStarted5.png[width="600"]
 . Locate the `build.gradle` file and select it. Click `OK`. You will be directed to the `Import Module from Gradle` window (refer to <<fig-GettingStarted6>>).
 
 [[fig-GettingStarted6]]
-.`Import Module from Gradle` Window
+.`Import Module from Gradle` window
 image::DeveloperGettingStarted6.png[width="600"]
 
 [start=12]
@@ -237,7 +238,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 The following sections will provide more details on each of the 4 secondary components.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 `UI` consists of a `MainWindow` that is made up of numerous parts (e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, `CalendarPanel`, etc.).
 These parts, including the `MainWindow`, inherit from the abstract `UiPart` class.
@@ -260,7 +261,7 @@ The layout of these UI parts are defined in matching `.fxml` files that are in t
 * Responds to events raised from various parts of the application and updates the UI accordingly.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 `Logic` consists of the commands and their respective parsers (if necessary).
 Parser classes are defined in `.java` files suffixed with _'Parser'_, and are found in the `src/main/java/logic/parser` folder.
@@ -302,11 +303,11 @@ The command execution can affect the `Model` (e.g. adding a task) and/or raise e
 .  `CommandResult` object is passed to `UI`.
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 `Model` consists of a `UniqueTaskList`, `UniqueTagList`, and `UniqueUserList` that contains and manipulates the data within the application using an `ObservableList`. The component also includes `Task`, and its respective parameters (e.g. `Name`, `Priority`, `Date Added`, etc.).
 
-The class diagram below (refers to <<fig-ModelComponent>>) gives an overview of the structure of `Model`.
+The class diagram below (refers to <<fig-ModelComponent>>) gives an overview of the structure of `model`.
 
 [[fig-ModelComponent]]
 .Structure of `Model`
@@ -324,7 +325,7 @@ The `Model`:
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 `Storage` consists of the `XmlOrganizerStorage`, which reads data from, and writes data to, the hard disk.
 Data is stored in XML format, and can be retrieved from `data` > `organizer.xml`.
@@ -349,13 +350,13 @@ image::StorageClassDiagram.png[width="800"]
 
 PrioriTask consists of many different features. This section describes some noteworthy details on how certain features are implemented.
 
-=== Undo/Redo feature
+=== Undo/Redo Feature
 
 The `undo` feature restores PrioriTask to the state before the previous undoable command was executed. Undoable commands are defined as commands that modify PrioriTask’s content (e.g. `add`, `delete`, `edit` and `clear`).
 
 The `redo` feature does the opposite - it reverses the most recent `undo` command.
 
-==== Current implementation
+==== Current Implementation
 
 The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the organizer (e.g. `add`, `edit`). Such commands inherit from `UndoableCommand`.
 
@@ -835,7 +836,7 @@ The sequence flow is slightly similar to that of the execution of a normal comma
 
 ==== Current Implementation
 
-Subtask feature allows user to split their tasks into multiple subtasks. This feature allows user to better
+Subtask feature allows users to split their tasks into multiple subtasks. This feature allows users to better
 manage their task. It is implemented using `Subtask` class and `UniqueSubtaskList` class as shown by <<fig-SubtaskComponentDiagram>> below:
 
 [[fig-SubtaskComponentDiagram]]
@@ -870,6 +871,85 @@ is `O(n)`.
 
 // end::subtask[]
 
+// tag::recur[]
+=== Recurring Tasks
+
+Recurring Tasks feature allows users to recur tasks weekly using the `RecurWeeklyCommand`. It also allows users to delete a task and all its recurred versions using the `DeleteRecurredTasksCommand`.
+
+==== Current implementation
+
+The recurring task feature is implemented through a `Recurrence` component, which is a parameter for `Task`.
+
+The first recurred version of the task has a deadline set to be a week after the original task's deadline. The second recurred version of the task (if asked for by the user) has a deadline set to be 2 weeks after the original task's deadline.
+
+The pattern continues for the rest of the recurred versions.
+
+The recurred versions of the tasks and all their subtasks are set to be `Not Completed` by default.
+
+Additionally, the priorities of the recurred versions of the tasks are set to be the priority of the orginal task, as last set in the `AddCommand` or `EditCommand`. This is done instead of taking the priority of the original task as it is, which could have been changed by PrioriTask through its auto-updating feature.
+
+Both `RecurWeeklyCommand` and `DeleteRecurredTasksCommand` are `UndoableCommands`.
+
+The `Recurrence` component is implemented using a Recurrence class. The following diagram (refer to <<fig-RecurrenceComponentDiagram>>) shows the class diagram for `Recurrence`.
+
+[[fig-RecurrenceComponentDiagram]]
+.Recurrence UML Class Diagram
+image::RecurrenceComponentDiagram.png[width="400"]
+
+==== Scenario
+
+Suppose that the user wants to recur a task weekly.
+
+The user executes a new `RecurWeeklyCommand`, `recurw 1 x/2`, to recur the 1st task in the organizer weekly for 3 times.
+
+Assuming that the task has not been recurred before, the following sequence diagram (refer to <<fig-RecurWeeklySequenceDiagram>>) shows how the recur weekly operation works:
+
+[[fig-RecurWeeklySequenceDiagram]]
+.RecurWeekly sequence diagram
+image::RecurWeeklySequenceDiagram.png[width="800"]
+
+The object diagram below (refer to <<fig-RecurredTasksObjectDiagram>>) shows the original task and the 2 `Tasks` created after the execution of the command.
+
+[[fig-RecurredTasksObjectDiagram]]
+.Recurred tasks object diagram
+image::RecurredTasksObjectDiagram.png[width="800"]
+
+Suppose the user now wants to delete the 1st task in the PrioriTask and all its recurred versions.
+
+The user executes a new `DeleteRecurredTasksCommand`, `deleter 1`, to delete the task that was just recurred and all its recurred versions.
+
+==== Design Considerations
+
+===== Aspect: Implementation of `recurrenceGroup` in `Recurrence`
+
+* **Alternative 1 (current choice):** Set recurrenceGroup as hash code of the task`
+** Pros: It is guaranteed to be unique, which is needed to identify a group of recurred tasks. It is also easy to implement.
+** Cons: It is not as intuitive to identify the group of recurred tasks using long hash codes.
+* **Alternative 2:** Set recurrenceGroup using a counter.
+** Pros: It is a more intuitive way of identifying recurrence groups.
+** Cons: There is a need to implement a counter for recurrence groups in `Model`.
+
+===== Aspect: Implementation of `RecurWeeklyCommand`
+
+* **Alternative 1 (current choice):** Add a new `Task` for each recurred version of the original task
+** Pros: It is easy to implement.
+** Cons: It takes up more memory for Objects that have very similar parameters..
+* **Alternative 2:** Maintain a list for each of the parameters that change when recurred within the original `Task`, such as a list of `DateCompleted` and a list of `Status`.
+** Pros: It will use less memory.
+** Cons: There is a need to change how certain parameters in `Task` are implemented.
+
+
+===== Aspect: Implementation of `DeleteRecurredTasksCommand`
+
+* **Alternative 1 (current choice):** Add tasks that are not part of the recurrence group into a new task list and set the new task list to replace the old one.
+** Pros: It only reverts changes that are hard to change back (the view can easily be re-modified as no data are * lost).
+** Cons: A user might think that undo also applies when the list is modified (undoing filtering for example), * only to realize that it does not do that, after executing `undo`.
+* **Alternative 2:** Remove tasks that are part of the recurrence group while iterating through the task list.
+** Pros: This is a more intuitive way of removing tasks from the list.
+** Cons: There is a need to implement an Iterator to remove tasks, as we cannot use a for loop which can cause undefined behaviour.
+
+// end::recur[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -880,7 +960,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-The following are breif descriptions of different logging levels:
+The following are brief descriptions of different logging levels:
 
 * `SEVERE` : A message level indicating a _serious_ failure (e.g. failure resulting in application termination).
 * `WARNING` : A message level indicating a _potential_ problem (e.g. application can still continue, but do so with caution).
@@ -953,12 +1033,12 @@ Open a console and run the command `gradlew clean headless allTests` (Mac/Linux:
 [NOTE]
 Thanks to the https://github.com/TestFX/TestFX[TestFX] library, GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. This means that the developer is free to do something else while the tests are running.
 
-=== Types of tests
+=== Types of Tests
 
 There are two types of tests:
 
 .  *GUI Tests* - Tests involving the GUI. They include:
-.. _System Tests_ that tests the entire App by simulating user actions on the GUI. These are found in the `systemtests` package.
+.. _System Tests_ that tests the entire application by simulating user actions on the GUI. These are found in the `systemtests` package.
 .. _Unit tests_ that test individual components. These are found in `seedu.organizer.ui` package.
 .  *Non-GUI Tests* - Tests not involving the GUI. They include:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
@@ -1042,13 +1122,13 @@ Help busy university students keep track of their tasks and priorities.
 * Natania Djohaari
 ** Major : Recurring Tasks
 *** Helps users automatically create tasks that are recurring.
-** Minor : Date completed parameter
-*** Allows users to view what date the task has been completed on.
+** Minor : Remove tags command
+*** Allows users to delete multiple tags from all tasks.
 * Yeo Guek Ling
 ** Major : Calendar
-*** Allows users to be able to have a more concise view of task deadlines.
-** Minor : Find deadline / description command
-*** Allows users to be able to search the organizer for tasks even when they have forgotten the task's name.
+*** Allows users to be able to have a chronological overview of the deadlines of all their tasks.
+** Minor : Find deadline / description commands
+*** Allows users to be search for tasks using keywords in the deadline and / or description parameters.
 
 [appendix]
 == User Stories
@@ -1145,6 +1225,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *`|user using the same machine as others |logout of PrioriTask |ensure privacy of my tasks
 
 |`* *`|user who has a user account |retrieve my password |login to my account if I forget my password
+
+|`* *`|user who has similar tasks that happen weekly |recur tasks weekly |easily create versions of the same task but with different deadlines.
 |=======================================================================
 
 [appendix]
@@ -1228,13 +1310,10 @@ Use case resumes at step 2.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the app manually:
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1253,26 +1332,106 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+[NOTE]
+If the window size is smaller than the default height and width, the window size will be reset to default upon app re-launch.
 
-=== Deleting a task
+=== User Management
 
-. Deleting a task while all tasks are listed
+. Signing up
+.. Prerequisites: Application is not currently logged in.
+.. Test case: `signup u/dave p/dave` +
+   Expected: No user account is created. Error details shown in the status message. Status bar remains the same.
+.. Test case: `signup u/admin p/admin` +
+   Expected: A user account is created. Username of the created user account is shown in the status message. Timestamp in the status bar is updated.
 
-.. Prerequisites: List all tasks using the `list` command. Multiple tasks in the list.
+. Logging in
+.. Prerequisites: User account with username 'admin' and password 'admin' has been created.
+.. Test case: `login u/admin123 p/admin123` +
+   Expected: Login attempt fails. Error details shown in the status message. Status bar remains the same.
+.. Test case: `login u/dave p/dave` +
+   Expected: Login attempt fails. Error details shown in the status message. Status bar remains the same.
+.. Test case: `login u/admin p/admin` +
+   Expected: Login attempt is successful. Username of currently logged in user is shown in the status message. Timestamp in the status bar is updated. Currently logged in user in status bar is updated.
+
+. Adding a question answer set
+.. Prerequisites: Application is currently logged in.
+.. Test case: `addqa q/ a/` +
+   Expected: No question answer set is added. Error details shown in the status message. Status bar remains the same.
+.. Test case: `addqa q/are cats cool? a/yes` +
+   Expected: Question answer set is added. Username of the currently logged in user and the command success is shown in the status message. Timestamp in the status bar is updated.
+
+. Retrieving a question for password retrieval
+.. Prerequisites: Application is not currently logged in. User account with username 'admin' and password 'admin' has been created. UserQuestion answer set has been added to user : 'admin'.
+.. Test case: `forgotpassword u/admin123` +
+   Expected: Question retrieval fails. Error details shown in the status message. Status bar remains the same.
+.. Test case: `forgotpassword u/admin` +
+   Expected: Question retrieval successful. Question of 'admin` shown in the status message. Status bar reminas the same.
+
+. Answering a question for password retrieval
+.. Prerequisites: Application is not currently logged in. User account with username 'admin' and password 'admin' has been created. UserQuestion answer set with answer 'yes' has been added to user : 'admin'.
+.. Test case: `answer u/admin123 a/yes` +
+   Expected: Password retrieval fails. Error details shown in the status message. Status bar remains the same.
+.. Test case: `answer u/admin a/no` +
+   Expected: Password retrieval fails. Error details shown in the status message. Status bar remains the same.
+.. Test case: `answer u/admin a/yes` +
+   Expected: Password retrieval successful. Password of 'admin' shown in the status message. Status bar remains the same.
+
+=== Task Management
+
+. Recurring a task weekly
+.. Prerequisites: Application is logged in, and at least a task is added that has not been recurred yet.
+.. Test case: recurw 1 x/2 +
+Expected: Task recurred successfully. A success message will be shown in the results display box. 2 tasks will have been added to the task list panel and the calendar.
+
+. Deleting a task and its recurred versions
+.. Prerequisites: Application is logged in, and at least a task is added that has been recurred.
+.. Test case: deleter 1 +
+Expected: Task and its recurred versions deleted successfully. A success message will be shown in the results display box. The task and its recurred versions will not be shown in the task list panel or the calendar.
+
+. Adding a subtask
+.. Prerequisites: Application is logged in, and at least a task is added with no subtask.
+.. Test case: adds 1 n/Prepare Project Report +
+Expected: Subtask added successfully. A success message will be shown in the results display box, and subtask with name `Prepare Project Report` appears on the first subtask.
+
+. Editing a subtask
+.. Prerequisites: Application is logged in, and a task is added with a subtask.
+.. Test case: edits 1 1 n/Prepare Project Report +
+Expected: Subtask edited successfully. A success message will be shown in the results display box, and subtask with name `Prepare Project Report` appears on the first subtask.
+
+. Deleting a subtask
+.. Prerequisites: Application is logged in, and a task is added with a subtask.
+.. Test case: delete-subtask 1 1 n/Prepare Project Report +
+Expected: Subtask deleted successfully. A success message will be shown in the results display box, and the task will have no subtask.
+
+. Toggling a subtask
+.. Prerequisites: Application is logged in, and a task is added with a subtask.
+.. Test case: toggle-subtask 1 1 +
+Expected: Subtask toggled successfully. A success message will be shown in the results display box, and the subtask status will be changed.
+
+=== Calendar
+
+. Adding a task
+.. Prerequisites: Application is logged in.
+.. Test case: `add n/CS2101 OP1 d/2018-03-23` +
+Expected: Task added successfully. A success message will be shown in the results display box. Task is reflected on the calendar on the `2018-03-23` date.
+
+. Editing a task
+.. Prerequisites: Application is logged in. At least one task is present in the organizer.
+.. Test case: `edit 1 n/Prepare for OP1` +
+Expected: Task updated successfully. A success message will be shown in the results display box. Calendar will be updated with the task's new name.
+.. Test case: `edit 1 p/3` +
+Expected: Task updated successfully. A success message will be shown in the results display box. No changes will be made on the calendar because the task's name and deadline was not changed.
+
+. Deleting a task
+.. Prerequisites: Application is logged in. At least one task is present in the organizer.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Expected: Task deleted successfully. A success message will be shown in the results display box. Calendar will remove the deleted task.
 
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+. Switching between months
+.. Prerequisites: Application is logged in.
+.. Test case: `pmonth` +
+Expected: Calendar view changed successfully. A success message will be shown in the results display box. If the currently viewed month on the application is `April 2018`, calendar will show `March 2018` after execution of command.
+.. Test case: `nmonth` +
+Expected: Calendar view changed successfully. A success message will be shown in the results display box. If the currently viewed month on the application is `April 2018`, calendar will show `May 2018` after execution of command.
+.. Test case: `cmonth` +
+Expected: Calendar view changed successfully. A success message will be shown in the results display box. If the currently viewed month on the application is `December 2018` and current month is `April 2018`, calendar will show `April 2018` after execution of command.

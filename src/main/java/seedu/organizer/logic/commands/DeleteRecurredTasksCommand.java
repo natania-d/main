@@ -11,7 +11,6 @@ import seedu.organizer.logic.commands.exceptions.CommandException;
 import seedu.organizer.model.recurrence.exceptions.TaskNotRecurringException;
 import seedu.organizer.model.task.Task;
 import seedu.organizer.model.task.exceptions.DuplicateTaskException;
-import seedu.organizer.model.task.exceptions.TaskNotFoundException;
 
 //@@author natania
 /**
@@ -28,9 +27,9 @@ public class DeleteRecurredTasksCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task & its Recurred Versions: %1$s";
-    public static final String MESSAGE_NOT_RECURRED_TASK = "This task is not recurring and cannot be deleted " +
-            "using this command. Use 'delete' instead.";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task & its Recurred Versions: %1$s";
+    public static final String MESSAGE_NOT_RECURRED_TASK = "This task is not recurring and cannot be deleted "
+            + "using this command. Use 'delete' instead.";
 
     private final Index targetIndex;
 
@@ -52,7 +51,7 @@ public class DeleteRecurredTasksCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_NOT_RECURRED_TASK);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
     @Override

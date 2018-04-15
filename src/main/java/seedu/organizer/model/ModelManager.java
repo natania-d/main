@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.organizer.commons.core.ComponentManager;
 import seedu.organizer.commons.core.LogsCenter;
 import seedu.organizer.commons.events.model.OrganizerChangedEvent;
+import seedu.organizer.model.recurrence.exceptions.TaskAlreadyRecurredException;
 import seedu.organizer.model.recurrence.exceptions.TaskNotRecurringException;
 import seedu.organizer.model.tag.Tag;
 import seedu.organizer.model.task.Task;
@@ -157,8 +158,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author natania
     @Override
-    public synchronized void recurTask(Task task, int times) throws DuplicateTaskException {
-        organizer.recurTask(task, times);
+    public synchronized void recurWeeklyTask(Task task, int times)
+            throws DuplicateTaskException, TaskAlreadyRecurredException, TaskNotFoundException {
+        organizer.recurWeeklyTask(task, times);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateOrganizerChanged();
     }
