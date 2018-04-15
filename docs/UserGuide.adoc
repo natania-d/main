@@ -624,7 +624,7 @@ Recurs the 1st task weekly for 3 times.
 ====
 // end::recurw[]
 
-// tag::deleter{}
+// tag::deleter[]
 === Deleting a task and all its recurred versions : `deleter` or `dr` `[since v1.5]`
 
 Deletes the specified task and all its recurred versions from PrioriTask. +

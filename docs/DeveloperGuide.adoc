@@ -948,7 +948,7 @@ The user executes a new `DeleteRecurredTasksCommand`, `deleter 1`, to delete the
 ** Pros: This is a more intuitive way of removing tasks from the list.
 ** Cons: There is a need to implement an Iterator to remove tasks, as we cannot use a for loop which can cause undefined behaviour.
 
-// end::recurr[]
+// end::recur[]
 
 === Logging
 
